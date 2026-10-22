@@ -164,10 +164,10 @@ RC_RESEARCH_MODEL_API_KEY=你的密钥
 ```powershell
 uv run python scripts/run_planner.py `
   --question "分析贵州茅台最近三个年度的利润质量与现金流匹配情况" `
-  --cutoff-date 2025-12-31 `
-  --skill financial-analysis
+  --cutoff-date 2025-12-31
 ```
 
+当前没有技能目录，脚本不接受技能参数，`selected_skill_ids` 保持为空；不会加载或执行技能。
 模型配置和适配器已经接入，但本仓库尚未执行真实调用。`deepseek-chat` 已被官方文档
 宣布于 2026-07-24 下线；当前默认使用 `deepseek-flash`，如果你的兼容网关仍支持旧名，
 可以设置 `RC_RESEARCH_MODEL=deepseek-chat`，但需要单独核验。真实模型的连接、费用、

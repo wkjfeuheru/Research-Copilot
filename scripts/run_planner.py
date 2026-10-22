@@ -6,8 +6,10 @@
 
 可选：
     --cutoff-date 2025-12-31
-    --skill financial-analysis
     --notes "重点关注经营现金流"
+
+当前没有技能目录，脚本不接受技能参数；PlannerInput.selected_skill_ids 保持为空，
+不加载或执行任何技能。
 """
 
 import argparse
@@ -45,13 +47,6 @@ def _parse_args() -> argparse.Namespace:
         default=None,
         help="研究截止日期，格式 YYYY-MM-DD",
     )
-    parser.add_argument(
-        "--skill",
-        action="append",
-        default=[],
-        dest="skills",
-        help="显式选择的技能 ID，可重复",
-    )
     parser.add_argument("--notes", default=None, help="人工补充说明")
     return parser.parse_args()
 
@@ -69,10 +64,10 @@ def main() -> int:
         return 2
 
     try:
+        # 技能目录尚未实现，不暴露未接通的技能参数。
         request = PlannerInput(
             research_question=args.question,
             cutoff_date=args.cutoff_date,
-            selected_skill_ids=args.skills,
             user_notes=args.notes,
         )
     except ValidationError as exc:

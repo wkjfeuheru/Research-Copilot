@@ -72,9 +72,11 @@ Copy-Item .env.example .env
 # 编辑 .env，设置 RC_RESEARCH_MODEL_API_KEY；不要提交 .env
 uv run python scripts/run_planner.py `
   --question "分析贵州茅台最近三个年度的利润质量与现金流匹配情况" `
-  --cutoff-date 2025-12-31 `
-  --skill financial-analysis
+  --cutoff-date 2025-12-31
 ```
+
+当前没有技能目录，脚本不接受技能参数，`PlannerInput.selected_skill_ids` 保持为空；
+测试中的技能 ID 只用于契约校验，不代表已实现技能加载或执行。
 
 该命令会产生真实 API 请求和费用，不属于自动测试。
 
