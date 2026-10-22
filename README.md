@@ -1,39 +1,39 @@
 # Research Copilot
 
-面向 A 股个股与行业研究的投研工作区。当前处于**阶段一：可启动的项目骨架**。
+面向 A 股个股与行业研究的投研工作区。当前处于**阶段二：Planner Agent 与单节点 LangGraph 集成**。
 
-> 本批完成仅代表前后端工程、健康检查和部署配置可运行，不代表参考项目已复现，
-> 也不代表研究业务已验收。数据库、模型、搜索、MCP、文件解析和 LangGraph 研究链路
-> 均未接入；界面不会伪造任务、回复或报告。
+> 阶段二只验证 Planner 契约、固定测试响应下的规划结构、业务校验和
+> `START → Planner → END` 单节点图。真实模型、Data Fetcher、检索、搜索、MCP、
+> 持久化和研究 HTTP 接口均未接入；不代表真实模型规划质量或研究业务已验收。
 
 ## 当前范围
 
 已实现：
 
-- 可安装的 Python 3.13 后端包，FastAPI 应用工厂与 `GET /api/health` 响应模型。
-- 配置读取（`RC_` 前缀环境变量或 `.env`），无模型密钥也能启动。
-- 后端配置与健康接口测试，测试过程不调用模型、搜索、MCP 或数据库。
-- React + TypeScript + Vite 前端骨架，B「简报阅读台」视觉方向。
-- 根路由对话式研究工作区：研究问题输入、占位技能选择、本地附件选择。
-- 研究记忆与技能空状态页面；导航中不存在资料库入口。
-- 发送、上传未接入时的明确提示；附件仅本地展示，不生成虚构任务或报告。
-- 前端 `/api` 开发代理；Docker Compose 生产同源反向代理。
-- Compose 前端、后端、PostgreSQL + pgvector 服务配置与命名卷。
-- 环境变量示例、启动与验证说明、前后端锁文件。
+- 阶段一的工程骨架：FastAPI 应用工厂与 `GET /api/health`、`RC_` 配置、B 风格前端、
+  Compose 部署配置与前后端锁文件。
+- Planner 输入/输出 Pydantic 契约、JSON Schema 导出与生成脚本。
+- Planner 提示词、最小模型客户端协议、严格业务校验和可追踪错误。
+- 通过依赖注入模型客户端的 Planner Agent；固定测试响应下可生成
+  个股、行业、公司对比三类计划。
+- 顶层共享 `ResearchState` 与 `START → Planner → END` 单节点 LangGraph。
+- 配置/健康接口、Planner 契约/提示词/校验、Planner Agent/图的分层测试。
 
 明确未实现：
 
-- 研究 Agent、LangGraph 状态图、节点契约与编排。
-- 研究模型、Embedding、网页搜索、CNEquity MCP 调用。
-- 上传、PDF 文本提取、文件工具、数据库连接或迁移。
-- 研究任务、简报、图表、长期记忆、后台经验总结、真实技能目录。
+- Data Fetcher、Analyst、Risk Checker、Writer、交付检查。
+- 真实模型适配与调用；当前测试只使用测试替身，无付费调用。
+- 网页搜索、CNEquity MCP、附件读取/PDF 解析、数据库连接或迁移。
+- 研究任务 HTTP 接口、checkpoint、跨请求恢复、人工暂停。
+- 真实技能目录、长期记忆、后台经验总结、正式简报与图表。
+- 前端发送/上传仍未接通；阶段二未修改前端行为。
 - 鉴权、公开部署保护、执行沙箱。当前只面向本机开发。
 
 ## 技术栈
 
 | 区域 | 选型 |
 |---|---|
-| 后端 | Python 3.13、FastAPI、Pydantic v2、LangGraph（依赖已安装，尚未编排）、uv |
+| 后端 | Python 3.13、FastAPI、Pydantic v2、LangGraph（已用于 Planner 单节点图）、uv |
 | 前端 | React、TypeScript、Vite、React Router、pnpm |
 | 持久化目标 | PostgreSQL + pgvector（本阶段只有部署配置，无业务表与迁移） |
 | 部署 | Docker Compose、Nginx 同源反向代理 |
@@ -45,9 +45,12 @@ Research-Copilot/
 ├── src/research_copilot/
 │   ├── __init__.py
 │   ├── config.py            # 环境配置，不要求外部密钥
+│   ├── state.py             # 共享 ResearchState（当前 request / plan）
 │   ├── api/                 # 应用工厂、路由、响应模型
-│   ├── agents/              # 后续各研究 Agent（仅职责边界）
-│   ├── llm/                 # 后续模型客户端（仅职责边界）
+│   ├── agents/
+│   │   └── planner/         # Planner 契约、提示词、校验与 Agent
+│   ├── orchestration/       # START -> Planner -> END 单节点图
+│   ├── llm/                 # 模型客户端协议与错误类型
 │   └── tools/               # 后续数据与文件工具（仅职责边界）
 ├── frontend/
 │   ├── src/
@@ -57,7 +60,8 @@ Research-Copilot/
 │   │   └── styles/          # 设计令牌与全局样式
 │   ├── package.json
 │   └── pnpm-lock.yaml
-├── tests/                   # 配置与健康接口测试
+├── scripts/                 # Planner JSON Schema 导出脚本
+├── tests/                   # 配置、健康接口与 Planner 测试
 ├── deploy/                  # 后端/前端镜像与 Nginx 配置
 ├── doc/                     # 规格、讨论、阶段计划与可丢弃原型（保留）
 ├── pyproject.toml
@@ -84,8 +88,9 @@ Research-Copilot/
 Copy-Item .env.example .env
 ```
 
-`.env` 已被忽略。阶段一使用其中默认值即可；`RC_DATABASE_URL`、
-`RC_RESEARCH_MODEL` 与 `RC_RESEARCH_MODEL_API_KEY` 可以留空。
+`.env` 已被忽略。本地开发使用其中默认值即可；`RC_DATABASE_URL`、
+`RC_RESEARCH_MODEL` 与 `RC_RESEARCH_MODEL_API_KEY` 可以留空。阶段二测试使用
+测试替身，不需要真实模型密钥。
 
 ### 2. 安装后端依赖
 
@@ -118,7 +123,7 @@ uv run uvicorn research_copilot.api.app:create_app --factory --host 127.0.0.1 --
     "api": { "status": "ok", "detail": "HTTP 应用已启动，可响应健康检查。" },
     "database": { "status": "not_configured", "detail": "未配置数据库；本阶段不访问 PostgreSQL 或 pgvector。" },
     "model": { "status": "not_configured", "detail": "未完整配置研究模型；本阶段不发起任何模型调用。" },
-    "workflow": { "status": "not_configured", "detail": "LangGraph 研究链路尚未实现；本接口不触发任何编排。" }
+    "workflow": { "status": "not_configured", "detail": "完整 LangGraph 研究链路尚未接入；当前只有离线测试覆盖的 Planner 单节点图，本接口不触发任何编排。" }
   }
 }
 ```
@@ -141,7 +146,7 @@ pnpm dev
 ## 验证命令
 
 ```powershell
-# 后端配置与健康接口测试（无外部调用）
+# 后端全量测试：配置、健康接口、Planner 契约/提示词/校验、Agent 与单节点图
 uv run pytest
 
 # 前端类型检查与生产构建
@@ -150,8 +155,10 @@ pnpm typecheck
 pnpm build
 ```
 
-本阶段浏览器验收范围：根路由、导航、对话输入、技能与附件区域、记忆与技能空状态，
-并确认页面不存在资料库入口。发送与附件选择只产生明确的未接入提示，不创建任务或报告。
+阶段二的 Planner 测试使用固定测试替身，不调用模型、搜索、MCP 或数据库；通过只代表
+契约、校验和单节点控制逻辑正确，不代表真实模型规划质量。阶段二未修改前端；
+浏览器验收仍覆盖阶段一的根路由、导航、对话输入、技能与附件区域、记忆与技能空状态，
+并确认页面不存在资料库入口。
 
 ## Docker Compose
 
@@ -182,8 +189,8 @@ docker compose ps
 |---|---|---|
 | `RC_ENVIRONMENT` | `development` | `development` / `test` / `production` |
 | `RC_API_PREFIX` | `/api` | API 路径前缀 |
-| `RC_DATABASE_URL` | 空 | 后续 PostgreSQL 连接地址；阶段一不连接 |
-| `RC_RESEARCH_MODEL` | 空 | 后续研究模型名称；阶段一不调用 |
+| `RC_DATABASE_URL` | 空 | 后续 PostgreSQL 连接地址；当前不连接 |
+| `RC_RESEARCH_MODEL` | 空 | 后续研究模型名称；当前不调用 |
 | `RC_RESEARCH_MODEL_API_KEY` | 空 | 后续模型密钥；不要提交 |
 | `POSTGRES_DB` | `research_copilot` | Compose 数据库名 |
 | `POSTGRES_USER` | `research_copilot` | Compose 数据库用户 |
@@ -196,8 +203,11 @@ docker compose ps
 - 健康接口只说明 API 进程可响应，不宣称数据库、模型或研究链路已就绪。
 - 附件选择只记录文件名并在当前页面展示；不读取文件内容、不上传、不解析。
 - 技能选择是占位交互；系统不会加载或执行技能。
-- `agents/`、`llm/`、`tools/` 只建立包与职责说明，不放置空实现，等待编排阶段再添加
-  `state.py`、`orchestrator.py` 与节点契约。
+- Planner 输出先通过 Pydantic Schema 和业务校验，才写入共享 `ResearchState`；
+  不生成默认计划、不自动修复非法 JSON。
+- 当前图只有 Planner 一个节点；不接入 checkpoint、条件路由或人工恢复。
+- `agents/` 中仅 Planner 已实现；其他 Agent、真实模型适配器和数据工具仍是后续批次。
+  测试替身只存在于 `tests/`，不进入生产默认路径。
 - 已移除独立资料库入口；后续附件与证据仍留在研究任务内。
 
 ## 保留与仓库
@@ -210,7 +220,8 @@ docker compose ps
 ## 后续开发顺序
 
 1. 原项目基线：固定参考版本，运行示例与测试，记录真实结果及 mock/降级行为。
-2. 研究主链路：Agent 契约、LangGraph 路由、任务接口与人工暂停恢复。
+2. 研究主链路：Agent 契约、LangGraph 路由、任务接口与人工暂停恢复
+   （Planner 已完成；下一步 Data Fetcher）。
 3. 真实数据与交付：CNEquity MCP、并行网页搜索、附件处理、分析图表与引用校验。
 4. 技能与持久化：按需加载、可信脚本沙箱、PostgreSQL checkpoint、研报知识记忆。
 5. 任务经验总结：终态后的幂等后台总结、失败重试与记忆管理。
@@ -222,5 +233,6 @@ docker compose ps
 - [阶段一计划](doc/plans/phase-1-plan.md)
 - [第一阶段实施与验证记录](doc/plans/phase-1-verification.md)
 - [阶段二计划](doc/plans/phase-2-plan.md)
+- [第二阶段实施与验证记录](doc/plans/phase-2-verification.md)
 - [领域术语](CONTEXT.md)
 - [可丢弃前端原型](doc/prototype/index.html)

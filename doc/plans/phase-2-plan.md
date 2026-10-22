@@ -1,7 +1,7 @@
 # 第二阶段：逐个开发研究 Agent，首批实现 Planner
 
 日期：2026-10-22  
-状态：实施计划，尚未实施。  
+状态：已实施；验收记录见 [phase-2-verification.md](phase-2-verification.md)。  
 需求依据：[项目规格](../spec.md)
 
 ## 开发方式
