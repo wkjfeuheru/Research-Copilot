@@ -202,7 +202,7 @@ docker compose ps
 
 ## 保留与仓库
 
-- 保留 `doc/spec.md`、`doc/design-discussion.md`、`doc/phase-1-plan.md`、
+- 保留 `doc/spec.md`、`doc/design-discussion.md`、`doc/plans/`、
   `doc/prototype/`、`CONTEXT.md` 与现有 `.venv`。
 - 未修改任何项目外的 `settings.json`。
 - 项目已初始化为独立 Git 仓库，实施分支为 `codex/bootstrap`，不操作父目录仓库。
@@ -219,7 +219,8 @@ docker compose ps
 
 - [需求规格](doc/spec.md)
 - [设计讨论](doc/design-discussion.md)
-- [阶段一计划](doc/phase-1-plan.md)
-- [第一阶段实施与验证记录](doc/phase-1-verification.md)
+- [阶段一计划](doc/plans/phase-1-plan.md)
+- [第一阶段实施与验证记录](doc/plans/phase-1-verification.md)
+- [阶段二计划](doc/plans/phase-2-plan.md)
 - [领域术语](CONTEXT.md)
-- [可丢弃前端原型说明](doc/prototype/README.md)
+- [可丢弃前端原型](doc/prototype/index.html)
