@@ -220,5 +220,6 @@ docker compose ps
 - [需求规格](doc/spec.md)
 - [设计讨论](doc/design-discussion.md)
 - [阶段一计划](doc/phase-1-plan.md)
+- [第一阶段实施与验证记录](doc/phase-1-verification.md)
 - [领域术语](CONTEXT.md)
 - [可丢弃前端原型说明](doc/prototype/README.md)
