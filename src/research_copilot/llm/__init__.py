@@ -1,8 +1,19 @@
-"""模型客户端包（阶段一仅建立边界）。
+"""模型客户端包。
 
-后续在此实现研究模型与 Embedding 客户端的配置、调用和错误语义。阶段一不
-发起模型调用，也不会因为缺少密钥而自动降级为 mock。模型与 Embedding 的
-选型在真实接入验收前确定。
+阶段二只定义最小结构化调用协议，不绑定模型供应商。后续适配器在此实现，
+并负责把供应商错误转换为 ``ModelCallError``；本模块不提供隐式 mock 或降级。
 """
 
-__all__: list[str] = []
+from research_copilot.llm.client import (
+    ModelCallError,
+    ModelRequest,
+    ModelResponse,
+    StructuredModelClient,
+)
+
+__all__ = [
+    "ModelCallError",
+    "ModelRequest",
+    "ModelResponse",
+    "StructuredModelClient",
+]

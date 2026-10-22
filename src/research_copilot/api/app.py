@@ -16,8 +16,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         title=resolved.app_name,
         version=__version__,
         description=(
-            "Research Copilot 阶段一工程骨架。当前仅提供健康检查；"
-            "研究 Agent、模型调用、数据工具和持久化尚未接入。"
+            "Research Copilot 阶段二工程。当前仅提供健康检查；"
+            "研究主链路只实现 Planner 的离线单节点集成，"
+            "真实模型调用、数据工具和持久化尚未接入。"
         ),
         docs_url=f"{resolved.api_prefix}/docs" if expose_docs else None,
         redoc_url=None,

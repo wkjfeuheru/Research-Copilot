@@ -73,7 +73,10 @@ def read_health(request: Request) -> HealthResponse:
             model=_model_check(settings),
             workflow=HealthCheck(
                 status=CheckStatus.NOT_CONFIGURED,
-                detail="LangGraph 研究链路尚未实现；本接口不触发任何编排。",
+                detail=(
+                    "完整 LangGraph 研究链路尚未接入；当前只有离线测试覆盖的 "
+                    "Planner 单节点图，本接口不触发任何编排。"
+                ),
             ),
         ),
     )
