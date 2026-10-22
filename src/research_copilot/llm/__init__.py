@@ -1,7 +1,7 @@
 """模型客户端包。
 
-阶段二只定义最小结构化调用协议，不绑定模型供应商。后续适配器在此实现，
-并负责把供应商错误转换为 ``ModelCallError``；本模块不提供隐式 mock 或降级。
+定义最小结构化调用协议，并提供 DeepSeek OpenAI 兼容适配器。适配器把供应商错误
+转换为 ``ModelCallError``；本模块不提供隐式 mock 或降级。
 """
 
 from research_copilot.llm.client import (
@@ -10,8 +10,10 @@ from research_copilot.llm.client import (
     ModelResponse,
     StructuredModelClient,
 )
+from research_copilot.llm.deepseek import DeepSeekModelClient
 
 __all__ = [
+    "DeepSeekModelClient",
     "ModelCallError",
     "ModelRequest",
     "ModelResponse",

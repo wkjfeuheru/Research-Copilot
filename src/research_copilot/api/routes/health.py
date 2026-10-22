@@ -37,21 +37,21 @@ def _model_check(settings: Settings) -> HealthCheck:
     if settings.research_model_configured:
         return HealthCheck(
             status=CheckStatus.NOT_CHECKED,
-            detail="已提供研究模型配置；本阶段不发起任何模型调用。",
+            detail="已提供研究模型配置；健康检查不发起模型调用，可用性需显式调用验证。",
         )
     return HealthCheck(
         status=CheckStatus.NOT_CONFIGURED,
-        detail="未完整配置研究模型；本阶段不发起任何模型调用。",
+        detail="未配置研究模型密钥或模型名；本接口不发起模型调用。",
     )
 
 
 @router.get(
     "/health",
     response_model=HealthResponse,
-    summary="骨架服务健康检查",
+    summary="服务健康检查",
     description=(
-        "仅确认 HTTP 进程可响应。数据库、模型和研究链路在本阶段均未接入，"
-        "响应中的状态不会被报告为可用。"
+        "仅确认 HTTP 进程可响应。数据库、模型和完整研究链路不因本接口被报告为可用；"
+        "真实模型调用不在健康检查中执行。"
     ),
 )
 def read_health(request: Request) -> HealthResponse:

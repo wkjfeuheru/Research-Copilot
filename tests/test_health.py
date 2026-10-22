@@ -31,6 +31,7 @@ def test_health_returns_explicit_process_only_contract() -> None:
     assert payload.checks.api.status is CheckStatus.OK
     assert payload.checks.database.status is CheckStatus.NOT_CONFIGURED
     assert payload.checks.model.status is CheckStatus.NOT_CONFIGURED
+    assert "未配置研究模型密钥" in payload.checks.model.detail
     assert payload.checks.workflow.status is CheckStatus.NOT_CONFIGURED
 
 
@@ -45,6 +46,7 @@ def test_configured_dependencies_are_reported_as_unverified() -> None:
     payload = HealthResponse.model_validate(response.json())
     assert payload.checks.database.status is CheckStatus.NOT_CHECKED
     assert payload.checks.model.status is CheckStatus.NOT_CHECKED
+    assert "健康检查不发起模型调用" in payload.checks.model.detail
     assert payload.checks.workflow.status is CheckStatus.NOT_CONFIGURED
     assert "not-a-real-key" not in response.text
 

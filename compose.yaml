@@ -30,8 +30,14 @@ services:
     restart: unless-stopped
     environment:
       RC_ENVIRONMENT: production
-      # 仅说明后续接入位置；阶段一应用不会连接数据库。
+      # 应用当前不会连接数据库；该地址仅说明后续接入位置。
       RC_DATABASE_URL: postgresql://${POSTGRES_USER:-research_copilot}:${POSTGRES_PASSWORD:-research_copilot_local_dev}@postgres:5432/${POSTGRES_DB:-research_copilot}
+      # 真实模型配置；未设置 key 时模型状态为未配置，不会发起调用。
+      RC_RESEARCH_MODEL: ${RC_RESEARCH_MODEL:-deepseek-flash}
+      RC_RESEARCH_MODEL_BASE_URL: ${RC_RESEARCH_MODEL_BASE_URL:-https://api.deepseek.com}
+      RC_RESEARCH_MODEL_API_KEY: ${RC_RESEARCH_MODEL_API_KEY:-}
+      RC_RESEARCH_MODEL_TIMEOUT_SECONDS: ${RC_RESEARCH_MODEL_TIMEOUT_SECONDS:-60}
+      RC_RESEARCH_MODEL_MAX_TOKENS: ${RC_RESEARCH_MODEL_MAX_TOKENS:-8192}
     depends_on:
       postgres:
         condition: service_healthy

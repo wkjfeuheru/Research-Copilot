@@ -17,8 +17,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         version=__version__,
         description=(
             "Research Copilot 阶段二工程。当前仅提供健康检查；"
-            "研究主链路只实现 Planner 的离线单节点集成，"
-            "真实模型调用、数据工具和持久化尚未接入。"
+            "研究主链路实现了 Planner 的单节点图，并提供 DeepSeek 模型适配器；"
+            "研究 HTTP 链路、数据工具和持久化尚未接入。"
         ),
         docs_url=f"{resolved.api_prefix}/docs" if expose_docs else None,
         redoc_url=None,
