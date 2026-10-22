@@ -1,0 +1,42 @@
+:root {
+  color-scheme: light;
+
+  /* 灰蓝编辑台与深绿强调，来自已选定的 B「简报阅读台」方向。 */
+  --color-canvas: #edf1f5;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f6f8fa;
+  --color-ink: #1f2c39;
+  --color-ink-secondary: #4d5f6f;
+  --color-muted: #6b7c8a;
+  --color-line: #dee5ec;
+  --color-line-strong: #c6d2de;
+  --color-accent: #267969;
+  --color-accent-strong: #1c6154;
+  --color-accent-pale: #edf5f2;
+  --color-warning: #8a5a22;
+  --color-warning-pale: #fbf4e8;
+  --color-danger: #9a3e32;
+
+  --font-sans:
+    'Segoe UI', 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB',
+    sans-serif;
+  --font-serif: 'Noto Serif SC', 'Songti SC', 'SimSun', 'STSong', serif;
+  --font-mono: 'Cascadia Mono', Consolas, 'SFMono-Regular', monospace;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+  --space-9: 4rem;
+  --space-10: 5rem;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --shadow-soft: 0 0.5rem 1.75rem rgb(31 44 57 / 6%);
+  --header-height: 4.375rem;
+}

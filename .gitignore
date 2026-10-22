@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+build/
+dist/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+*.local
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Tooling and editor output
+output/
+.playwright-cli/
+coverage.xml
+htmlcov/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
