@@ -1,0 +1,21 @@
+{
+  "required_fields": ["revenue_2024", "revenue_2023", "net_profit_attr_2024", "net_profit_attr_2023", "gross_margin_2024", "gross_margin_2023", "net_margin_attr_2024", "net_margin_attr_2023", "selling_expense_2024", "selling_expense_ratio_2024", "selling_expense_ratio_2023"],
+  "optional_fields": ["industry_baijiu_revenue_yoy", "net_profit_attr_q4_2024_yoy", "p5_wholesale_price_end_2024"],
+  "required_metrics": [
+    {"semantic_type": "rate_difference", "value": "-1.37", "unit": "pp", "required_in_report": false},
+    {"semantic_type": "growth_gap", "value": "1.65", "unit": "pp", "required_in_report": true}
+  ],
+  "required_body_phrases": ["毛利率由75.79%升至77.05%，提升1.26个百分点"],
+  "metric_definitions": {
+    "growth_gap": {
+      "description": "Use disclosed revenue growth 7.09% minus disclosed parent profit growth 5.44%, yielding 1.65pp with semantic_type=growth_gap. Do not replace disclosed growth with recomputed unrounded rates.",
+      "formula": "revenue_growth_reported - parent_profit_growth_reported"
+    },
+    "p5_price_discount": {
+      "description": "The 9.72%-10.70% range is the estimated P5 wholesale price discount to the 1019 CNY/bottle ex-factory price; wholesale endpoints are 920 and 910 from the authorized source. It is NOT a selling-expense sensitivity range. Register source-backed inputs and compute both endpoints in the sandbox; display two decimals and label as estimates.",
+      "formula": "(ex_factory_price - wholesale_price) / ex_factory_price * 100",
+      "input_fields": ["p5_ex_factory_price", "p5_wholesale_price_low", "p5_wholesale_price_high"],
+      "origin": "r4 registered metrics p5_wholesale_price_discount_to_exfactory_low/high and the authorized evidence package"
+    }
+  }
+}

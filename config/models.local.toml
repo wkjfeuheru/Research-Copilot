@@ -1,0 +1,68 @@
+# ModelsConfig example. No credentials are stored here.
+# Copy to config/models.local.toml and adjust provider/model capacities.
+
+[providers.deepseek]
+base_url = "https://api.deepseek.com"
+api_key_env = "RC_DEEPSEEK_API_KEY"
+timeout_seconds = 120
+
+[roles.supervisor]
+provider_id = "deepseek"
+model = "deepseek-flash"
+context_tokens = 131072
+max_output_tokens = 8192
+tool_calling = true
+reasoning_field = "reasoning_content"
+# Thinking mode supports auto, not forced tool selection; ToolStrategy validates results.
+required_tool_choice = "auto"
+
+[roles.searcher]
+provider_id = "deepseek"
+model = "deepseek-flash"
+context_tokens = 131072
+max_output_tokens = 8192
+tool_calling = true
+reasoning_field = "reasoning_content"
+# Thinking mode supports auto, not forced tool selection; ToolStrategy validates results.
+required_tool_choice = "auto"
+
+[roles.analysist]
+provider_id = "deepseek"
+model = "deepseek-flash"
+context_tokens = 131072
+max_output_tokens = 8192
+tool_calling = true
+reasoning_field = "reasoning_content"
+# Thinking mode supports auto, not forced tool selection; ToolStrategy validates results.
+required_tool_choice = "auto"
+
+[roles.writer]
+provider_id = "deepseek"
+model = "deepseek-chat"
+context_tokens = 131072
+max_output_tokens = 8192
+tool_calling = true
+reasoning_field = "reasoning_content"
+# Thinking mode supports auto, not forced tool selection; ToolStrategy validates results.
+required_tool_choice = "auto"
+
+[roles.reviewer]
+provider_id = "deepseek"
+model = "deepseek-chat"
+context_tokens = 131072
+max_output_tokens = 8192
+tool_calling = true
+reasoning_field = "reasoning_content"
+# Thinking mode supports auto, not forced tool selection; ToolStrategy validates results.
+required_tool_choice = "auto"
+
+[summarizer]
+provider_id = "deepseek"
+model = "deepseek-flash"
+context_tokens = 131072
+# 1200 汉字摘要混排路径/证据 ID 实测可超 2048 tokens；截断会触发重试浪费计费。
+max_output_tokens = 4096
+tool_calling = false
+
+[summarizer.extra_body.thinking]
+type = "disabled"

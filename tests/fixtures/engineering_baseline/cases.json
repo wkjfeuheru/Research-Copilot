@@ -1,0 +1,238 @@
+[
+  {
+    "id": "alpha-period",
+    "scenario": "period_difference",
+    "kind": "numeric",
+    "body": "甲公司2024年净利率提升2.00个百分点。",
+    "references": {
+      "metric_ids": [
+        "M-diff"
+      ],
+      "evidence_ids": [
+        "E-a"
+      ]
+    },
+    "metrics": {
+      "M-diff": {
+        "value": "2",
+        "unit": "pp",
+        "display_precision": 2
+      }
+    },
+    "evidence": {
+      "E-a": {}
+    },
+    "facts": [],
+    "expected_accept": true,
+    "trace": [
+      {
+        "reserved": 80,
+        "input_tokens": 30,
+        "output_tokens": 10
+      },
+      {
+        "reserved": 80,
+        "input_tokens": 30,
+        "output_tokens": 10
+      }
+    ]
+  },
+  {
+    "id": "beta-units",
+    "scenario": "unit_conversion",
+    "kind": "numeric",
+    "body": "乙公司2023年收入1.00亿元。",
+    "references": {
+      "metric_ids": [
+        "M-converted"
+      ],
+      "evidence_ids": [
+        "E-b"
+      ]
+    },
+    "metrics": {
+      "M-converted": {
+        "value": "1",
+        "unit": "亿元",
+        "display_precision": 2
+      }
+    },
+    "evidence": {
+      "E-b": {}
+    },
+    "facts": [],
+    "expected_accept": true,
+    "trace": [
+      {
+        "reserved": 80,
+        "input_tokens": 30,
+        "output_tokens": 10
+      },
+      {
+        "reserved": 80,
+        "input_tokens": 30,
+        "output_tokens": 10
+      }
+    ]
+  },
+  {
+    "id": "gamma-missing",
+    "scenario": "missing_evidence",
+    "kind": "numeric",
+    "body": "丙公司2024年收入100元。",
+    "references": {
+      "evidence_ids": [
+        "E-missing"
+      ],
+      "fact_refs": [
+        {
+          "key": "revenue_2024",
+          "period": "2024",
+          "unit": "CNY",
+          "scale": "1",
+          "evidence_id": "E-a"
+        }
+      ]
+    },
+    "metrics": {},
+    "evidence": {},
+    "facts": [],
+    "expected_accept": false,
+    "trace": [
+      {
+        "reserved": 80,
+        "input_tokens": 30,
+        "output_tokens": 10
+      },
+      {
+        "reserved": 80,
+        "input_tokens": 30,
+        "output_tokens": 10
+      }
+    ]
+  },
+  {
+    "id": "delta-conflict",
+    "scenario": "conflicting_sources",
+    "kind": "numeric",
+    "body": "丁公司2024年收入100元。",
+    "references": {
+      "evidence_ids": [
+        "E-a"
+      ],
+      "fact_refs": [
+        {
+          "key": "revenue_2024",
+          "period": "2024",
+          "unit": "CNY",
+          "scale": "1",
+          "evidence_id": "E-a"
+        }
+      ]
+    },
+    "metrics": {},
+    "evidence": {
+      "E-a": {
+        "content_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "facts": [
+      {
+        "input_ref": {
+          "key": "revenue_2024",
+          "period": "2024",
+          "unit": "CNY",
+          "scale": "1",
+          "evidence_id": "E-a",
+          "raw_value": "100",
+          "content_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      },
+      {
+        "input_ref": {
+          "key": "revenue_2024",
+          "period": "2024",
+          "unit": "CNY",
+          "scale": "1",
+          "evidence_id": "E-a",
+          "raw_value": "120",
+          "content_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    ],
+    "expected_accept": false,
+    "trace": [
+      {
+        "reserved": 80,
+        "input_tokens": 30,
+        "output_tokens": 10
+      },
+      {
+        "reserved": 80,
+        "input_tokens": 30,
+        "output_tokens": 10
+      }
+    ]
+  },
+  {
+    "id": "epsilon-chart",
+    "scenario": "chart_review",
+    "kind": "chart",
+    "option": {
+      "series": [
+        {
+          "type": "bar",
+          "data": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    "expected_accept": true,
+    "trace": [
+      {
+        "reserved": 80,
+        "input_tokens": 30,
+        "output_tokens": 10
+      },
+      {
+        "reserved": 80,
+        "input_tokens": 30,
+        "output_tokens": 10
+      }
+    ]
+  },
+  {
+    "id": "zeta-chart-injection",
+    "scenario": "chart_review",
+    "kind": "chart",
+    "option": {
+      "series": [
+        {
+          "type": "bar",
+          "data": [
+            1,
+            2
+          ]
+        }
+      ],
+      "tooltip": {
+        "formatter": "function(){return secret}"
+      }
+    },
+    "expected_accept": false,
+    "trace": [
+      {
+        "reserved": 80,
+        "input_tokens": 30,
+        "output_tokens": 10
+      },
+      {
+        "reserved": 80,
+        "input_tokens": 30,
+        "output_tokens": 10
+      }
+    ]
+  }
+]

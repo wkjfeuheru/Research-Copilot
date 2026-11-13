@@ -1,0 +1,30 @@
+{
+  "format": "msgpack",
+  "payload_base64": "gqZyZXZpZXfIASkFlNkmcmVzZWFyY2hfY29waWxvdF92Mi5zdWJhZ2VudHMucmV2aWV3ZXKsQnJhbmNoUmV2aWV3ha9wYXNzX2NvbmZpZGVuY2XLP+mZmZmZmZqvY2hlY2tzX2NvbXBsZXRlw69jb3ZlcmVkX3RhcmdldHORqmRvY3VtZW50OjCmaXNzdWVzkYioY2F0ZWdvcnmncXVhbGl0eahzZXZlcml0eaVtYWpvcql0YXJnZXRfaWSqZG9jdW1lbnQ6MKhsb2NhdGlvbqRib2R5pXF1b3RlpHRleHSlYmFzaXOlZmFjdHOmcmVhc29uq3Vuc3VwcG9ydGVkqnN1Z2dlc3Rpb26mcmV2aXNlrmlzc3VlX2Nsb3N1cmVzkLNtb2RlbF92YWxpZGF0ZV9qc29uqGFydGlmYWN0x64FlL1yZXNlYXJjaF9jb3BpbG90X3YyLmNvbnRyYWN0c6tBcnRpZmFjdFJlZoOrYXJ0aWZhY3RfaWSocmVwb3J0LTGndmVyc2lvbqExrGNvbnRlbnRfaGFzaNlAYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYbNtb2RlbF92YWxpZGF0ZV9qc29u",
+  "review": {
+    "pass_confidence": 0.8,
+    "checks_complete": true,
+    "covered_targets": [
+      "document:0"
+    ],
+    "issues": [
+      {
+        "category": "quality",
+        "severity": "major",
+        "target_id": "document:0",
+        "location": "body",
+        "quote": "text",
+        "basis": "facts",
+        "reason": "unsupported",
+        "suggestion": "revise"
+      }
+    ],
+    "issue_closures": []
+  },
+  "artifact": {
+    "artifact_id": "report-1",
+    "version": "1",
+    "content_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "resources_manifest_sha256": "153e29b956a7d5075c669fec8129ab7202f093913eaca3a3f0ec59e637ce89e5"
+}

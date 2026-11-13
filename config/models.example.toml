@@ -1,0 +1,70 @@
+# ModelsConfig example. No credentials are stored here.
+# Copy to config/models.local.toml and adjust provider/model capacities.
+
+[providers.deepseek]
+base_url = "https://api.deepseek.com"
+api_key_env = "RC_DEEPSEEK_API_KEY"
+timeout_seconds = 120
+
+[roles.supervisor]
+provider_id = "deepseek"
+model = "deepseek-flash"
+context_tokens = 131072
+max_output_tokens = 8192
+tool_calling = true
+reasoning_field = "reasoning_content"
+# Thinking mode supports auto, not forced tool selection; ToolStrategy validates results.
+required_tool_choice = "auto"
+
+[roles.searcher]
+provider_id = "deepseek"
+model = "deepseek-flash"
+context_tokens = 131072
+max_output_tokens = 8192
+tool_calling = true
+reasoning_field = "reasoning_content"
+# Thinking mode supports auto, not forced tool selection; ToolStrategy validates results.
+required_tool_choice = "auto"
+
+[roles.analysist]
+provider_id = "deepseek"
+model = "deepseek-flash"
+context_tokens = 131072
+max_output_tokens = 8192
+tool_calling = true
+reasoning_field = "reasoning_content"
+# Thinking mode supports auto, not forced tool selection; ToolStrategy validates results.
+required_tool_choice = "auto"
+
+[roles.writer]
+provider_id = "deepseek"
+model = "deepseek-chat"
+context_tokens = 131072
+max_output_tokens = 8192
+tool_calling = true
+reasoning_field = "reasoning_content"
+# Thinking mode supports auto, not forced tool selection; ToolStrategy validates results.
+required_tool_choice = "auto"
+
+[roles.reviewer]
+# 仅在供应商/具体模型已验证支持图像后改为 true；未声明默认 false。
+# 声明会传递到 LangChain profile，不代表已通过真实图表审核验收。
+image_inputs = false
+provider_id = "deepseek"
+model = "deepseek-chat"
+context_tokens = 131072
+max_output_tokens = 8192
+tool_calling = true
+reasoning_field = "reasoning_content"
+# Thinking mode supports auto, not forced tool selection; ToolStrategy validates results.
+required_tool_choice = "auto"
+
+[summarizer]
+provider_id = "deepseek"
+model = "deepseek-flash"
+context_tokens = 131072
+max_output_tokens = 2048
+tool_calling = false
+
+[summarizer.extra_body.thinking]
+type = "disabled"

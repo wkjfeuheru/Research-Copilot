@@ -1,0 +1,110 @@
+.overview {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.stats div {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-paper);
+}
+
+.stats dt {
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+.stats dd {
+  margin: 0.1rem 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-md);
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-paper);
+}
+
+.panel h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-size: var(--text-base);
+}
+
+.panelHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.taskGroups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11.5rem, 1fr));
+  gap: var(--space-4);
+}
+
+.taskGroup h3 {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.taskRow {
+  display: grid;
+  grid-template-columns: 2.9rem minmax(0, 1fr);
+  gap: var(--space-2);
+  padding: 0.2rem 0;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+.taskRow code {
+  color: var(--color-pine-strong);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.preWrap {
+  color: var(--color-ink-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.85;
+  white-space: pre-wrap;
+}
+
+.list {
+  display: grid;
+  gap: 0.2rem;
+  padding-left: 1.2rem;
+  color: var(--color-ink-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.75;
+  list-style: decimal;
+}
+
+.limit {
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+}

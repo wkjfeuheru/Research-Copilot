@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { App } from './app/App';
 import './styles/tokens.css';
 import './styles/global.css';
+import './styles/ui.css';
 
 const rootElement = document.getElementById('root');
 

@@ -1,0 +1,101 @@
+[
+  {
+    "projection_format": "v2-json-segments-1",
+    "value": {
+      "collected_at": "2026-10-30T07:57:30.318817+00:00",
+      "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+      "evidence_id": "E-000001",
+      "kind": "attachment_original",
+      "parent_id": null,
+      "raw": {
+        "body": {
+          "join": "",
+          "text_segments": [
+            "五粮液(000858.SZ) 2024年年度报告与行业公开数据摘录\n\n用途：Research Copilot V2 端到端测试的受控证据包。以下内容均为公开披露或公开报道的原文摘录，\n仅用于事实核验与引用，不包含预测、评级或投资建议。\n\n[公司财务数据]\n营业总收入_2024：891.75亿元\n营业总收入_2023：832.72亿元\n营业总收入_同比：+7.09（百分比）\n归母净利润_2024：318.53亿元\n归母净利润_2023：302.11亿元\n归母净利润_同比：+5.",
+            "44（百分比）\n毛利率_2024：77.05（百分比）\n毛利率_2023：75.79（百分比）\n毛利率_同比变动：+1.26个百分点\n归母净利率_2024：35.72（百分比）\n归母净利率_2023：36.28（百分比）\n归母净利率_同比变动：-0.56个百分点\n销售费用_2024：106.92亿元\n销售费用_同比：+37.15（百分比）\n销售费用率_2024：11.99（百分比）\n销售费用率_2023：9.36（百分比）\n销售费用率_同比变动：+2.63个百分点\n经营活动现",
+            "金流量净额_2024：339.40亿元\n经营活动现金流量净额_同比：-18.69（百分比）\n合同负债_2024年末：116.9亿元\n合同负债_同比：+70.3（百分比）\n2024Q4归母净利润：69.2亿元\n2024Q4归母净利润_同比：-6.2（百分比）\n\n[产品与渠道]\n五粮液产品收入_2024：678.75亿元\n五粮液产品收入_同比：+8.07（百分比）\n其他酒收入_2024：152.51亿元\n其他酒收入_同比：+11.79（百分比）\n普五批价_2024年末：910-9",
+            "20元/瓶\n普五出厂价_2024：1019元/瓶\n\n[行业数据]\n规模以上白酒企业产量_2024：414.5万千升\n规模以上白酒企业产量_同比：-1.8（百分比）\n规模以上白酒企业销售收入_2024：7963.84亿元\n规模以上白酒企业销售收入_同比：+5.30（百分比）\n规模以上白酒企业利润总额_2024：2508.65亿元\n规模以上白酒企业利润总额_同比：+7.76（百分比）\n白酒行业CR6利润总额占比_2024：86（百分比）\n\n[来源]\n公司财务数据：五粮液2024年",
+            "年度报告（2025年4月25日披露）；证券时报、上海证券报、财联社公开报道。\n行业数据：中国酒业协会《2024中国白酒产业发展年度报告》；国家统计局。\n渠道价格：中信证券、东吴证券2024年报点评及公开报道；普五批价与出厂价对比。\n"
+          ]
+        },
+        "encoding": "utf-8",
+        "original_hash": "6abbcf50242f74fef16affd442d076f51d97bce62ce5f1bbde24264566ce51bd",
+        "title": "wuliangye_2024_facts.txt"
+      },
+      "source": {
+        "arguments": {
+          "original_hash": "6abbcf50242f74fef16affd442d076f51d97bce62ce5f1bbde24264566ce51bd",
+          "path": "/workspace/inputs/6abbcf50242f74fef16affd442d076f51d97bce62ce5f1bbde24264566ce51bd/wuliangye_2024_facts.txt"
+        },
+        "historical_availability": "unknown",
+        "schema_hash": null,
+        "server": "attachment",
+        "tool": "import_input"
+      }
+    }
+  },
+  {
+    "projection_format": "v2-json-segments-1",
+    "value": {
+      "collected_at": "2026-10-30T07:58:11.313537+00:00",
+      "content_hash": "6dc528c1ac6da1caea816df63cda788543f5cf947824b9c1999873d200dd7965",
+      "evidence_id": "E-000002",
+      "kind": "search_snippet",
+      "parent_id": null,
+      "raw": {
+        "body": "Sep 9, 2025 — 根据中国酒业协会数据，2024年白酒行业销售收入为7963.84亿元，同比增长5.30%。 ... 白酒市场规模达1664亿元，市场份额达21.6%。 与此同时，作为高端 ...Read more",
+        "provider": "tavily",
+        "published_at": null,
+        "source_ref": {
+          "canonical_url": "https://cj.sina.cn/articles/view/6141084077/16e0981ad01902z3zy?froms=ggmp",
+          "provider": "tavily",
+          "query": "中国酒业协会 2024中国白酒产业发展年度报告 规模以上白酒企业销售收入 7963.84亿元 同比增长 5.30%",
+          "request_id": "88edbd90-c99a-4413-8cc8-538940da16a1",
+          "score": 0.9154545,
+          "url": "https://cj.sina.cn/articles/view/6141084077/16e0981ad01902z3zy?froms=ggmp"
+        },
+        "title": "酒·瓷产业融合，机会远不止于包装",
+        "url": "https://cj.sina.cn/articles/view/6141084077/16e0981ad01902z3zy?froms=ggmp"
+      },
+      "source": {
+        "arguments": {},
+        "historical_availability": "unknown",
+        "schema_hash": null,
+        "server": "web_search",
+        "tool": "tavily"
+      }
+    }
+  },
+  {
+    "projection_format": "v2-json-segments-1",
+    "value": {
+      "collected_at": "2026-10-30T07:58:11.404025+00:00",
+      "content_hash": "475a50b6b8b799f37a53d80b0e2fcef72bd4fb6bb58564373a745671751c2e8b",
+      "evidence_id": "E-000003",
+      "kind": "search_snippet",
+      "parent_id": null,
+      "raw": {
+        "body": "May 7, 2025 — ... 同比下降1.8%，这已是白酒整体产量连续第八年下跌。白酒行业实现销售总收入为7963.84亿元，同比增长5.30%，对比2023年9.7%的增速，接近减半。 中国酒 ...Read more",
+        "provider": "tavily",
+        "published_at": null,
+        "source_ref": {
+          "canonical_url": "https://finance.sina.com.cn/cj/2025-05-07/doc-inevtcea9783527.shtml",
+          "provider": "tavily",
+          "query": "中国酒业协会 2024中国白酒产业发展年度报告 规模以上白酒企业销售收入 7963.84亿元 同比增长 5.30%",
+          "request_id": "88edbd90-c99a-4413-8cc8-538940da16a1",
+          "score": 0.8351749,
+          "url": "https://finance.sina.com.cn/cj/2025-05-07/doc-inevtcea9783527.shtml"
+        },
+        "title": "每年将分红70亿、股息率位居榜首，洋河股份用真金白银诠释 ...",
+        "url": "https://finance.sina.com.cn/cj/2025-05-07/doc-inevtcea9783527.shtml"
+      },
+      "source": {
+        "arguments": {},
+        "historical_availability": "unknown",
+        "schema_hash": null,
+        "server": "web_search",
+        "tool": "tavily"
+      }
+    }
+  }
+]

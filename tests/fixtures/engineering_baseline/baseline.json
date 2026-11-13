@@ -1,0 +1,109 @@
+{
+  "format": 1,
+  "fixture_sha256": "b4f84859681b2751d2b262f5394083bcdc8fb44e9332d2b3a5b327166da04344",
+  "scope": "frozen_boundary_replay",
+  "usage_origin": "synthetic_offline",
+  "real_model_cost": null,
+  "agent_completion_rate": null,
+  "case_count": 6,
+  "contract_accuracy": 1.0,
+  "accepted_output_rate": 0.5,
+  "replayed_calls": 12,
+  "replayed_tokens": 480,
+  "cases": [
+    {
+      "id": "alpha-period",
+      "scenario": "period_difference",
+      "expected_accept": true,
+      "accepted": true,
+      "contract_correct": true,
+      "errors": [],
+      "trace_complete": true,
+      "replayed_calls": 2,
+      "replayed_tokens": 80
+    },
+    {
+      "id": "beta-units",
+      "scenario": "unit_conversion",
+      "expected_accept": true,
+      "accepted": true,
+      "contract_correct": true,
+      "errors": [],
+      "trace_complete": true,
+      "replayed_calls": 2,
+      "replayed_tokens": 80
+    },
+    {
+      "id": "gamma-missing",
+      "scenario": "missing_evidence",
+      "expected_accept": false,
+      "accepted": false,
+      "contract_correct": true,
+      "errors": [
+        "claim references unauthorized or missing inputs",
+        "uncovered numeric claim: 100 | context: 丙公司2024年收入100元。"
+      ],
+      "trace_complete": true,
+      "replayed_calls": 2,
+      "replayed_tokens": 80
+    },
+    {
+      "id": "delta-conflict",
+      "scenario": "conflicting_sources",
+      "expected_accept": false,
+      "accepted": false,
+      "contract_correct": true,
+      "errors": [
+        "numeric fact field/period/unit binding missing or ambiguous",
+        "numeric claim lacks matching value/precision: 100"
+      ],
+      "trace_complete": true,
+      "replayed_calls": 2,
+      "replayed_tokens": 80
+    },
+    {
+      "id": "epsilon-chart",
+      "scenario": "chart_review",
+      "expected_accept": true,
+      "accepted": true,
+      "contract_correct": true,
+      "errors": [],
+      "trace_complete": true,
+      "replayed_calls": 2,
+      "replayed_tokens": 80
+    },
+    {
+      "id": "zeta-chart-injection",
+      "scenario": "chart_review",
+      "expected_accept": false,
+      "accepted": false,
+      "contract_correct": true,
+      "errors": [
+        "Unapproved formatter"
+      ],
+      "trace_complete": true,
+      "replayed_calls": 2,
+      "replayed_tokens": 80
+    }
+  ],
+  "budget_curve": [
+    {
+      "token_limit_per_case": 40,
+      "completed_replays": 0,
+      "replayed_calls": 0,
+      "replayed_tokens": 0
+    },
+    {
+      "token_limit_per_case": 100,
+      "completed_replays": 0,
+      "replayed_calls": 6,
+      "replayed_tokens": 240
+    },
+    {
+      "token_limit_per_case": 500,
+      "completed_replays": 6,
+      "replayed_calls": 12,
+      "replayed_tokens": 480
+    }
+  ]
+}

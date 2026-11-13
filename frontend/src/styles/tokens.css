@@ -1,27 +1,43 @@
 :root {
   color-scheme: light;
 
-  /* 灰蓝编辑台与深绿强调，来自已选定的 B「简报阅读台」方向。 */
-  --color-canvas: #edf1f5;
+  /* 校样台：冷灰桌面 + 暖纸 + 墨色 + 松绿动作色 + 印章红（只用于冻结/签核）。 */
+  --color-desk: #eef1f2;
+  --color-paper: #fbfaf6;
   --color-surface: #ffffff;
-  --color-surface-muted: #f6f8fa;
-  --color-ink: #1f2c39;
-  --color-ink-secondary: #4d5f6f;
-  --color-muted: #6b7c8a;
-  --color-line: #dee5ec;
-  --color-line-strong: #c6d2de;
-  --color-accent: #267969;
-  --color-accent-strong: #1c6154;
-  --color-accent-pale: #edf5f2;
-  --color-warning: #8a5a22;
-  --color-warning-pale: #fbf4e8;
+  --color-surface-muted: #f4f6f6;
+  --color-ink: #17242c;
+  --color-ink-secondary: #52636d;
+  --color-muted: #5f6e76;
+  --color-line: #d7dee2;
+  --color-line-strong: #bfcbd1;
+  --color-pine: #1d5c50;
+  --color-pine-strong: #14453c;
+  --color-pine-wash: #eaf2ef;
+  --color-seal: #7b2f2f;
   --color-danger: #9a3e32;
+  --color-danger-pale: #f7e9e7;
+
+  /* 兼容既有令牌名（旧组件仍在引用）。 */
+  --color-accent: var(--color-pine);
+  --color-accent-strong: var(--color-pine-strong);
+  --color-accent-pale: var(--color-pine-wash);
 
   --font-sans:
-    'Segoe UI', 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB',
-    sans-serif;
-  --font-serif: 'Noto Serif SC', 'Songti SC', 'SimSun', 'STSong', serif;
-  --font-mono: 'Cascadia Mono', Consolas, 'SFMono-Regular', monospace;
+    "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI",
+    "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", system-ui, sans-serif;
+  --font-serif:
+    "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun",
+    "STSong", serif;
+  --font-mono:
+    "Cascadia Mono", "JetBrains Mono", Consolas, "SFMono-Regular", monospace;
+
+  --text-xs: 0.6875rem;
+  --text-sm: 0.75rem;
+  --text-base: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.625rem;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -31,12 +47,10 @@
   --space-6: 2rem;
   --space-7: 2.5rem;
   --space-8: 3rem;
-  --space-9: 4rem;
   --space-10: 5rem;
 
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --shadow-soft: 0 0.5rem 1.75rem rgb(31 44 57 / 6%);
-  --header-height: 4.375rem;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --header-height: 3.5rem;
 }

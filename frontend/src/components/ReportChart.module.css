@@ -1,0 +1,11 @@
+.root { display: block; width: 100%; min-width: 0; max-width: 100%; position: relative; overflow: hidden; margin: 1.5rem 0; break-inside: avoid; }
+.interactive { display: block; width: 100%; aspect-ratio: 5 / 3; min-height: 240px; }
+.inactive { position: absolute; visibility: hidden; pointer-events: none; }
+.static { display: block; width: 100%; height: auto; }
+.root .printOnly { display: none; }
+.caption { display: block; margin-top: .5rem; font-size: .875rem; color: var(--text-secondary, #52615b); }
+.notice, .hint { display: block; margin-top: .25rem; font-size: .8125rem; color: var(--text-secondary, #52615b); }
+@media print {
+  .interactive, .notice, .hint { display: none !important; }
+  .root .printOnly, .root .static { display: block; width: 100%; height: auto; }
+}

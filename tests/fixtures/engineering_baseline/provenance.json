@@ -1,0 +1,6 @@
+{
+  "format": 1,
+  "usage_origin": "synthetic_offline",
+  "truth_origin": "Hand-authored deterministic contract fixtures; fictional companies; no provider run or measured agent quality.",
+  "cases_sha256": "b4f84859681b2751d2b262f5394083bcdc8fb44e9332d2b3a5b327166da04344"
+}

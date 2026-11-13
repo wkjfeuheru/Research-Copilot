@@ -1,0 +1,9 @@
+{
+  "color": ["#16756d", "#426b9c", "#bc7845", "#8975a8", "#779966", "#ba5862"],
+  "backgroundColor": "#ffffff",
+  "textStyle": {"fontFamily": "Noto Sans CJK SC", "fontSize": 12},
+  "title": {"textStyle": {"color": "#223b36", "fontSize": 18}},
+  "legend": {"textStyle": {"color": "#52615b"}},
+  "categoryAxis": {"axisLine": {"lineStyle": {"color": "#7c918b"}}},
+  "valueAxis": {"splitLine": {"lineStyle": {"color": "#e2e9e6"}}}
+}

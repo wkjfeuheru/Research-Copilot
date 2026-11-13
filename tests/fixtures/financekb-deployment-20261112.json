@@ -1,0 +1,3257 @@
+{
+  "captured_at": "2026-11-12T13:25:15.452083+00:00",
+  "domains": {
+    "market": [
+      {
+        "name": "get_ohlcv",
+        "description": "按日期查询最多5000根OHLCV及来源时间、成交额和单位，K线统一来自东财。股票不复权、价格为元、成交量为股，指数为点和手。历史边界：日线可回溯多年，分钟级仅限近期（1分钟约5个交易日，5/15/30/60分钟约最近7周），覆盖不足或超量报错。",
+        "read_only_hint": true,
+        "schema_fingerprint": "d84faf30e477a83ca86f7565b0a6624f291221cabed9a152312214b75b189de0",
+        "input_schema": {
+          "properties": {
+            "symbol": {
+              "description": "resolve_symbol 返回的标准代码，例如 600519.SH 或 000300.CSI。",
+              "pattern": "^[0-9]{6}\\.(SH|SZ|CSI)$",
+              "title": "Symbol",
+              "type": "string"
+            },
+            "start_date": {
+              "description": "北京时间业务日期，格式 YYYY-MM-DD，包含此端点。",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+              "title": "Start Date",
+              "type": "string"
+            },
+            "end_date": {
+              "description": "北京时间业务日期，格式 YYYY-MM-DD，包含此端点。",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+              "title": "End Date",
+              "type": "string"
+            },
+            "interval": {
+              "default": "1d",
+              "description": "K 线周期，指数支持 1d、1w、1M，股票支持全部枚举周期。",
+              "enum": [
+                "1m",
+                "5m",
+                "15m",
+                "30m",
+                "60m",
+                "1d",
+                "1w",
+                "1M"
+              ],
+              "title": "Interval",
+              "type": "string"
+            }
+          },
+          "required": [
+            "symbol",
+            "start_date",
+            "end_date"
+          ],
+          "title": "get_ohlcvArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "Bar": {
+              "properties": {
+                "symbol": {
+                  "description": "resolve_symbol 返回的标准代码，例如 600519.SH 或 000300.CSI。",
+                  "pattern": "^[0-9]{6}\\.(SH|SZ|CSI)$",
+                  "title": "Symbol",
+                  "type": "string"
+                },
+                "instrument_type": {
+                  "enum": [
+                    "stock",
+                    "index"
+                  ],
+                  "title": "Instrument Type",
+                  "type": "string"
+                },
+                "interval": {
+                  "enum": [
+                    "1m",
+                    "5m",
+                    "15m",
+                    "30m",
+                    "60m",
+                    "1d",
+                    "1w",
+                    "1M"
+                  ],
+                  "title": "Interval",
+                  "type": "string"
+                },
+                "time": {
+                  "description": "来源 K 线时间，含时区",
+                  "format": "date-time",
+                  "title": "Time",
+                  "type": "string"
+                },
+                "trade_date": {
+                  "description": "北京时间交易日期",
+                  "format": "date",
+                  "title": "Trade Date",
+                  "type": "string"
+                },
+                "open": {
+                  "title": "Open",
+                  "type": "number"
+                },
+                "high": {
+                  "title": "High",
+                  "type": "number"
+                },
+                "low": {
+                  "title": "Low",
+                  "type": "number"
+                },
+                "close": {
+                  "title": "Close",
+                  "type": "number"
+                },
+                "price_unit": {
+                  "enum": [
+                    "CNY",
+                    "point"
+                  ],
+                  "title": "Price Unit",
+                  "type": "string"
+                },
+                "volume": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Volume"
+                },
+                "volume_unit": {
+                  "enum": [
+                    "share",
+                    "lot"
+                  ],
+                  "title": "Volume Unit",
+                  "type": "string"
+                },
+                "turnover": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "成交额，单位元",
+                  "title": "Turnover"
+                },
+                "source": {
+                  "enum": [
+                    "infoway",
+                    "eastmoney"
+                  ],
+                  "title": "Source",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "symbol",
+                "instrument_type",
+                "interval",
+                "time",
+                "trade_date",
+                "open",
+                "high",
+                "low",
+                "close",
+                "price_unit",
+                "volume_unit",
+                "source"
+              ],
+              "title": "Bar",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/Bar"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[Bar]",
+          "type": "object"
+        }
+      },
+      {
+        "name": "get_realtime_quote",
+        "description": "查询股票价格或指数点位及可用涨跌幅，附来源和时间；快照统一来自新浪。收盘后时间可停留在交易时段。任一标的缺报价时整体available=false且items为空。",
+        "read_only_hint": true,
+        "schema_fingerprint": "fb65a8fbc1b404695e2efc3ccdcf6da1284c6a7c30102cb97c4e1b39343ade41",
+        "input_schema": {
+          "properties": {
+            "symbols": {
+              "description": "1 至 20 个互不重复的股票或指数标准代码。",
+              "items": {
+                "description": "resolve_symbol 返回的标准代码，例如 600519.SH 或 000300.CSI。",
+                "pattern": "^[0-9]{6}\\.(SH|SZ|CSI)$",
+                "type": "string"
+              },
+              "maxItems": 20,
+              "minItems": 1,
+              "title": "Symbols",
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "symbols"
+          ],
+          "title": "get_realtime_quoteArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "Quote": {
+              "properties": {
+                "symbol": {
+                  "description": "resolve_symbol 返回的标准代码，例如 600519.SH 或 000300.CSI。",
+                  "pattern": "^[0-9]{6}\\.(SH|SZ|CSI)$",
+                  "title": "Symbol",
+                  "type": "string"
+                },
+                "instrument_type": {
+                  "enum": [
+                    "stock",
+                    "index"
+                  ],
+                  "title": "Instrument Type",
+                  "type": "string"
+                },
+                "value": {
+                  "title": "Value",
+                  "type": "number"
+                },
+                "value_unit": {
+                  "enum": [
+                    "CNY",
+                    "point"
+                  ],
+                  "title": "Value Unit",
+                  "type": "string"
+                },
+                "source_time": {
+                  "description": "新浪行情快照时间，含时区",
+                  "format": "date-time",
+                  "title": "Source Time",
+                  "type": "string"
+                },
+                "change_pct": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "涨跌幅，百分数",
+                  "title": "Change Pct"
+                },
+                "source": {
+                  "enum": [
+                    "infoway",
+                    "sina"
+                  ],
+                  "title": "Source",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "symbol",
+                "instrument_type",
+                "value",
+                "value_unit",
+                "source_time",
+                "source"
+              ],
+              "title": "Quote",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/Quote"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[Quote]",
+          "type": "object"
+        }
+      },
+      {
+        "name": "resolve_symbol",
+        "description": "精确匹配沪深股票及上证指数、深证成指、沪深300的简称或代码，返回标准代码、名称、交易所、类型和来源。歧义返回候选；股票经东财搜索接口实时解析。",
+        "read_only_hint": true,
+        "schema_fingerprint": "014aee8ce6fac937ab4d4e410488c9c59ed496837f20eb5bf6be5433e29625e1",
+        "input_schema": {
+          "properties": {
+            "keyword": {
+              "description": "股票或指数的简称、裸代码或标准代码。",
+              "maxLength": 64,
+              "minLength": 1,
+              "title": "Keyword",
+              "type": "string"
+            }
+          },
+          "required": [
+            "keyword"
+          ],
+          "title": "resolve_symbolArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "Instrument": {
+              "properties": {
+                "symbol": {
+                  "description": "resolve_symbol 返回的标准代码，例如 600519.SH 或 000300.CSI。",
+                  "pattern": "^[0-9]{6}\\.(SH|SZ|CSI)$",
+                  "title": "Symbol",
+                  "type": "string"
+                },
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "exchange": {
+                  "enum": [
+                    "SSE",
+                    "SZSE",
+                    "CSI"
+                  ],
+                  "title": "Exchange",
+                  "type": "string"
+                },
+                "instrument_type": {
+                  "enum": [
+                    "stock",
+                    "index"
+                  ],
+                  "title": "Instrument Type",
+                  "type": "string"
+                },
+                "source": {
+                  "enum": [
+                    "infoway",
+                    "eastmoney"
+                  ],
+                  "title": "Source",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "symbol",
+                "name",
+                "exchange",
+                "instrument_type",
+                "source"
+              ],
+              "title": "Instrument",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/Instrument"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[Instrument]",
+          "type": "object"
+        }
+      }
+    ],
+    "fundamentals": [
+      {
+        "name": "get_company_profile",
+        "description": "查询公司概况、董监高、十大股东、十大流通股东和实际控制人，附各自来源与可用报告期。各组报告期可不同，缺失字段为null或空列表。",
+        "read_only_hint": true,
+        "schema_fingerprint": "71ff5956596f28df095338439ef6ca639c3a5bf57ef423d130ad27bb88f2941b",
+        "input_schema": {
+          "properties": {
+            "symbol": {
+              "description": "resolve_symbol 返回的沪深股票标准代码，例如 600519.SH。",
+              "pattern": "^[0-9]{6}\\.(SH|SZ)$",
+              "title": "Symbol",
+              "type": "string"
+            }
+          },
+          "required": [
+            "symbol"
+          ],
+          "title": "get_company_profileArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "CompanyOverview": {
+              "properties": {
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "industry": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Industry"
+                },
+                "description": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Description"
+                },
+                "main_business": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Main Business"
+                },
+                "listed_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Listed Date"
+                },
+                "address": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Address"
+                },
+                "website": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Website"
+                },
+                "source": {
+                  "default": "infoway",
+                  "enum": [
+                    "infoway",
+                    "eastmoney"
+                  ],
+                  "title": "Source",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "title": "CompanyOverview",
+              "type": "object"
+            },
+            "CompanyProfile": {
+              "properties": {
+                "symbol": {
+                  "description": "resolve_symbol 返回的沪深股票标准代码，例如 600519.SH。",
+                  "pattern": "^[0-9]{6}\\.(SH|SZ)$",
+                  "title": "Symbol",
+                  "type": "string"
+                },
+                "company": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/CompanyOverview"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                },
+                "executives": {
+                  "items": {
+                    "$ref": "#/$defs/Executive"
+                  },
+                  "title": "Executives",
+                  "type": "array"
+                },
+                "executives_reported": {
+                  "default": false,
+                  "description": "主源是否提供高管清单字段",
+                  "title": "Executives Reported",
+                  "type": "boolean"
+                },
+                "shareholders": {
+                  "items": {
+                    "$ref": "#/$defs/ShareholderList"
+                  },
+                  "title": "Shareholders",
+                  "type": "array"
+                },
+                "actual_controller": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Actual Controller"
+                },
+                "controller_source": {
+                  "anyOf": [
+                    {
+                      "const": "eastmoney",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Controller Source"
+                }
+              },
+              "required": [
+                "symbol"
+              ],
+              "title": "CompanyProfile",
+              "type": "object"
+            },
+            "Executive": {
+              "properties": {
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "role": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Role"
+                },
+                "appointed_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Appointed Date"
+                },
+                "source": {
+                  "const": "eastmoney",
+                  "default": "eastmoney",
+                  "title": "Source",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "title": "Executive",
+              "type": "object"
+            },
+            "Shareholder": {
+              "properties": {
+                "rank": {
+                  "maximum": 10,
+                  "minimum": 1,
+                  "title": "Rank",
+                  "type": "integer"
+                },
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "shares": {
+                  "anyOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Shares"
+                },
+                "holding_pct": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "持股比例，百分数",
+                  "title": "Holding Pct"
+                },
+                "share_type": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Share Type"
+                }
+              },
+              "required": [
+                "rank",
+                "name"
+              ],
+              "title": "Shareholder",
+              "type": "object"
+            },
+            "ShareholderList": {
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "top_total",
+                    "top_float"
+                  ],
+                  "title": "Kind",
+                  "type": "string"
+                },
+                "report_date": {
+                  "format": "date",
+                  "title": "Report Date",
+                  "type": "string"
+                },
+                "denominator": {
+                  "enum": [
+                    "total_shares",
+                    "float_shares"
+                  ],
+                  "title": "Denominator",
+                  "type": "string"
+                },
+                "source": {
+                  "const": "eastmoney",
+                  "default": "eastmoney",
+                  "title": "Source",
+                  "type": "string"
+                },
+                "holders": {
+                  "items": {
+                    "$ref": "#/$defs/Shareholder"
+                  },
+                  "title": "Holders",
+                  "type": "array"
+                }
+              },
+              "required": [
+                "kind",
+                "report_date",
+                "denominator",
+                "holders"
+              ],
+              "title": "ShareholderList",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/CompanyProfile"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[CompanyProfile]",
+          "type": "object"
+        }
+      },
+      {
+        "name": "get_dividend_history",
+        "description": "按公告日倒序查询分红方案，返回方案状态、每股税前人民币金额、送转、报告期及可用公告、登记、除息、发放日期。",
+        "read_only_hint": true,
+        "schema_fingerprint": "0f4fc677238db9771010d71014f33f888e4cdc62294ae0e2afe0ba0a1950191d",
+        "input_schema": {
+          "properties": {
+            "symbol": {
+              "description": "resolve_symbol 返回的沪深股票标准代码，例如 600519.SH。",
+              "pattern": "^[0-9]{6}\\.(SH|SZ)$",
+              "title": "Symbol",
+              "type": "string"
+            },
+            "limit": {
+              "default": 20,
+              "description": "最多返回的分红事件数。",
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "symbol"
+          ],
+          "title": "get_dividend_historyArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "DividendEvent": {
+              "properties": {
+                "symbol": {
+                  "description": "resolve_symbol 返回的沪深股票标准代码，例如 600519.SH。",
+                  "pattern": "^[0-9]{6}\\.(SH|SZ)$",
+                  "title": "Symbol",
+                  "type": "string"
+                },
+                "report_date": {
+                  "format": "date",
+                  "title": "Report Date",
+                  "type": "string"
+                },
+                "announcement_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Announcement Date"
+                },
+                "plan_announcement_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Plan Announcement Date"
+                },
+                "record_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Record Date"
+                },
+                "ex_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Ex Date"
+                },
+                "payment_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Payment Date"
+                },
+                "status": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Status"
+                },
+                "cash_per_share": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "每股税前现金红利，人民币元",
+                  "title": "Cash Per Share"
+                },
+                "bonus_shares_per_share": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Bonus Shares Per Share"
+                },
+                "transfer_shares_per_share": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Transfer Shares Per Share"
+                },
+                "source": {
+                  "const": "eastmoney",
+                  "default": "eastmoney",
+                  "title": "Source",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "symbol",
+                "report_date"
+              ],
+              "title": "DividendEvent",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/DividendEvent"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[DividendEvent]",
+          "type": "object"
+        }
+      },
+      {
+        "name": "get_financial_statements",
+        "description": "查询东财利润表、资产负债表和现金流量表，返回报告期、公告日、科目及单位。季报利润和现金流为年初至期末累计，资产负债为期末时点；Decimal数值以十进制字符串返回。",
+        "read_only_hint": true,
+        "schema_fingerprint": "557a4b63d8ae0b3e408ad81b9406a114f47df15819b9c432ff0507b7c323647d",
+        "input_schema": {
+          "properties": {
+            "symbol": {
+              "description": "resolve_symbol 返回的沪深股票标准代码，例如 600519.SH。",
+              "pattern": "^[0-9]{6}\\.(SH|SZ)$",
+              "title": "Symbol",
+              "type": "string"
+            },
+            "period": {
+              "default": "annual",
+              "description": "annual 只查年报。quarterly 查各季末（含年末），利润和现金流为年初至期末累计。",
+              "enum": [
+                "annual",
+                "quarterly"
+              ],
+              "title": "Period",
+              "type": "string"
+            },
+            "years": {
+              "default": 3,
+              "description": "查询完整年度或季度窗口的年数。annual以本年1月1日、quarterly以本季度首日为不含端点的终点，再向前years年。",
+              "maximum": 10,
+              "minimum": 1,
+              "title": "Years",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "symbol"
+          ],
+          "title": "get_financial_statementsArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "FinancialLine": {
+              "properties": {
+                "item_id": {
+                  "title": "Item Id",
+                  "type": "string"
+                },
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "value": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "主源原始科目数值",
+                  "title": "Value"
+                },
+                "ttm": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Ttm"
+                },
+                "group": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Group"
+                },
+                "parent_item_id": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Parent Item Id"
+                },
+                "currency": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Currency"
+                },
+                "unit": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Unit"
+                }
+              },
+              "required": [
+                "item_id",
+                "name"
+              ],
+              "title": "FinancialLine",
+              "type": "object"
+            },
+            "FinancialStatement": {
+              "properties": {
+                "symbol": {
+                  "description": "resolve_symbol 返回的沪深股票标准代码，例如 600519.SH。",
+                  "pattern": "^[0-9]{6}\\.(SH|SZ)$",
+                  "title": "Symbol",
+                  "type": "string"
+                },
+                "statement": {
+                  "enum": [
+                    "income",
+                    "balance",
+                    "cash_flow"
+                  ],
+                  "title": "Statement",
+                  "type": "string"
+                },
+                "period": {
+                  "enum": [
+                    "annual",
+                    "quarterly"
+                  ],
+                  "title": "Period",
+                  "type": "string"
+                },
+                "period_date": {
+                  "format": "date",
+                  "title": "Period Date",
+                  "type": "string"
+                },
+                "period_basis": {
+                  "enum": [
+                    "annual",
+                    "year_to_date",
+                    "as_of"
+                  ],
+                  "title": "Period Basis",
+                  "type": "string"
+                },
+                "announcement_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Announcement Date"
+                },
+                "source_update_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Source Update Date"
+                },
+                "reporting_scope": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Reporting Scope"
+                },
+                "source": {
+                  "const": "eastmoney",
+                  "default": "eastmoney",
+                  "title": "Source",
+                  "type": "string"
+                },
+                "lines": {
+                  "items": {
+                    "$ref": "#/$defs/FinancialLine"
+                  },
+                  "title": "Lines",
+                  "type": "array"
+                }
+              },
+              "required": [
+                "symbol",
+                "statement",
+                "period",
+                "period_date",
+                "period_basis",
+                "lines"
+              ],
+              "title": "FinancialStatement",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/FinancialStatement"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[FinancialStatement]",
+          "type": "object"
+        }
+      },
+      {
+        "name": "get_segment_revenue",
+        "description": "查询东财单一报告期、单一维度的全部主营构成（非完整财报或法定分部），返回收入、成本、主营利润及推导标记、源毛利率和收入占比；金额为元、比例为百分数，Decimal以字符串返回。缺指标为null，缺报告期或维度为available=false；跨维度不可相加，不推算未单列的储能收入，源未标明单季或累计口径。",
+        "read_only_hint": true,
+        "schema_fingerprint": "3b515daec7a60752d6fe5ffc09d8e5adc26a48d4bee13f9ca92e3cf63ffdba89",
+        "input_schema": {
+          "properties": {
+            "symbol": {
+              "description": "resolve_symbol 返回的沪深股票标准代码，例如 600519.SH。",
+              "pattern": "^[0-9]{6}\\.(SH|SZ)$",
+              "title": "Symbol",
+              "type": "string"
+            },
+            "report_date": {
+              "anyOf": [
+                {
+                  "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "报告期末YYYY-MM-DD，精确匹配；省略或null先取全源最新报告期，再筛维度，不回退旧期。",
+              "title": "Report Date"
+            },
+            "dimension": {
+              "default": "product",
+              "description": "product产品、industry行业、region地区；默认产品，单次仅一个维度。",
+              "enum": [
+                "product",
+                "industry",
+                "region"
+              ],
+              "title": "Dimension",
+              "type": "string"
+            }
+          },
+          "required": [
+            "symbol"
+          ],
+          "title": "get_segment_revenueArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "SegmentRevenue": {
+              "properties": {
+                "symbol": {
+                  "description": "resolve_symbol 返回的沪深股票标准代码，例如 600519.SH。",
+                  "pattern": "^[0-9]{6}\\.(SH|SZ)$",
+                  "title": "Symbol",
+                  "type": "string"
+                },
+                "report_date": {
+                  "description": "报告期末日期，不是公告日；源未标明单季或累计口径。",
+                  "format": "date",
+                  "title": "Report Date",
+                  "type": "string"
+                },
+                "dimension": {
+                  "description": "主营构成维度：产品、行业或地区；跨维度不可相加。",
+                  "enum": [
+                    "product",
+                    "industry",
+                    "region"
+                  ],
+                  "title": "Dimension",
+                  "type": "string"
+                },
+                "segment_name": {
+                  "description": "东财原始构成名称，不等同于法定报告分部。",
+                  "minLength": 1,
+                  "title": "Segment Name",
+                  "type": "string"
+                },
+                "revenue": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "主营收入，元；Decimal字符串，缺失为null。",
+                  "title": "Revenue"
+                },
+                "cost": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "同一构成的主营成本，元；缺失不补零。",
+                  "title": "Cost"
+                },
+                "gross_profit": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "源提供的主营利润或同一行收入减成本，元；不是净利润。",
+                  "title": "Gross Profit"
+                },
+                "gross_profit_basis": {
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "source",
+                        "revenue_minus_cost"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "source为源主营利润；revenue_minus_cost为同一行收入减成本；null表示无值。",
+                  "title": "Gross Profit Basis"
+                },
+                "gross_margin_pct": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "源提供的毛利率，百分数（23.9577表示23.9577%）；缺失不推导。",
+                  "title": "Gross Margin Pct"
+                },
+                "revenue_share_pct": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "源提供的收入占比，百分数；不重算分母，缺失为null。",
+                  "title": "Revenue Share Pct"
+                },
+                "currency": {
+                  "default": null,
+                  "description": "源未提供币种，固定为null，不推定为CNY。",
+                  "title": "Currency",
+                  "type": "null"
+                },
+                "unit": {
+                  "const": "元",
+                  "default": "元",
+                  "description": "收入、成本与利润的金额单位。",
+                  "title": "Unit",
+                  "type": "string"
+                },
+                "source": {
+                  "const": "eastmoney",
+                  "default": "eastmoney",
+                  "description": "东财F10主营构成，覆盖范围以源返回为准。",
+                  "title": "Source",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "symbol",
+                "report_date",
+                "dimension",
+                "segment_name"
+              ],
+              "title": "SegmentRevenue",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/SegmentRevenue"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[SegmentRevenue]",
+          "type": "object"
+        }
+      },
+      {
+        "name": "get_valuation_metrics",
+        "description": "查询最近已收盘交易日的东财PE(TTM)、PB(MRQ)、PS(TTM)，附交易日和定义。北京时间15点后才考虑当天；目标交易日指标未更新时返回available=false。",
+        "read_only_hint": true,
+        "schema_fingerprint": "c56fe448c023906a14f484aa12c5f3736daa71fe3a139fbb00e73ba5b5df5f53",
+        "input_schema": {
+          "properties": {
+            "symbol": {
+              "description": "resolve_symbol 返回的沪深股票标准代码，例如 600519.SH。",
+              "pattern": "^[0-9]{6}\\.(SH|SZ)$",
+              "title": "Symbol",
+              "type": "string"
+            }
+          },
+          "required": [
+            "symbol"
+          ],
+          "title": "get_valuation_metricsArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "ValuationMetric": {
+              "properties": {
+                "symbol": {
+                  "description": "resolve_symbol 返回的沪深股票标准代码，例如 600519.SH。",
+                  "pattern": "^[0-9]{6}\\.(SH|SZ)$",
+                  "title": "Symbol",
+                  "type": "string"
+                },
+                "metric": {
+                  "enum": [
+                    "pe",
+                    "pb",
+                    "ps"
+                  ],
+                  "title": "Metric",
+                  "type": "string"
+                },
+                "value": {
+                  "title": "Value",
+                  "type": "number"
+                },
+                "trade_date": {
+                  "format": "date",
+                  "title": "Trade Date",
+                  "type": "string"
+                },
+                "source_time": {
+                  "anyOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "主源提供精确时间时填写",
+                  "title": "Source Time"
+                },
+                "definition": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Definition"
+                },
+                "source": {
+                  "const": "eastmoney",
+                  "default": "eastmoney",
+                  "title": "Source",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "symbol",
+                "metric",
+                "value",
+                "trade_date"
+              ],
+              "title": "ValuationMetric",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/ValuationMetric"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[ValuationMetric]",
+          "type": "object"
+        }
+      }
+    ],
+    "macro": [
+      {
+        "name": "get_economic_calendar",
+        "description": "查询国家统计局2026年计划发布日程，返回事项、计划日期、原始日程链接与来源。默认今天起30天，涉及其他年份时返回available=false。只给start_date=2026-11-01时，终点补为2026-11-30。",
+        "read_only_hint": true,
+        "schema_fingerprint": "5fb38a7302aad6fe79c67435b72d61a04ed9cf3cbefd347f6bd910bdf7942563",
+        "input_schema": {
+          "properties": {
+            "start_date": {
+              "default": "",
+              "description": "北京时间业务日期YYYY-MM-DD，含端点；空字符串表示缺省。只给起点时向后展开默认窗口，只给终点时向前展开，窗口长度见工具说明。",
+              "pattern": "^(?:[0-9]{4}-[0-9]{2}-[0-9]{2})?$",
+              "title": "Start Date",
+              "type": "string"
+            },
+            "end_date": {
+              "default": "",
+              "description": "北京时间业务日期YYYY-MM-DD，含端点；空字符串表示缺省。只给起点时向后展开默认窗口，只给终点时向前展开，窗口长度见工具说明。",
+              "pattern": "^(?:[0-9]{4}-[0-9]{2}-[0-9]{2})?$",
+              "title": "End Date",
+              "type": "string"
+            }
+          },
+          "title": "get_economic_calendarArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "EconomicEvent": {
+              "properties": {
+                "event": {
+                  "title": "Event",
+                  "type": "string"
+                },
+                "planned_date": {
+                  "format": "date",
+                  "title": "Planned Date",
+                  "type": "string"
+                },
+                "url": {
+                  "format": "uri",
+                  "maxLength": 2083,
+                  "minLength": 1,
+                  "title": "Url",
+                  "type": "string"
+                },
+                "source": {
+                  "const": "nbs",
+                  "default": "nbs",
+                  "title": "Source",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "event",
+                "planned_date",
+                "url"
+              ],
+              "title": "EconomicEvent",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/EconomicEvent"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[EconomicEvent]",
+          "type": "object"
+        }
+      },
+      {
+        "name": "get_macro_indicator",
+        "description": "按月末或季末观察期查询东财中国CPI/GDP，返回指标值、口径、单位、来源及可用发布日期。默认近12个月，GDP为年初至季末累计；观察期与实际发布日期分别返回。只给start_date=2025-11-10时，终点补为2026-11-10。",
+        "read_only_hint": true,
+        "schema_fingerprint": "0ee96a7a3e6460a21049c918c55163fcb8ed2a3ecd56afe75efdcf7ba00993ca",
+        "input_schema": {
+          "properties": {
+            "indicator": {
+              "description": "CPI 为中国居民消费价格指数，GDP 为中国国内生产总值。",
+              "enum": [
+                "CPI",
+                "GDP"
+              ],
+              "title": "Indicator",
+              "type": "string"
+            },
+            "start_date": {
+              "default": "",
+              "description": "北京时间业务日期YYYY-MM-DD，含端点；空字符串表示缺省。只给起点时向后展开默认窗口，只给终点时向前展开，窗口长度见工具说明。",
+              "pattern": "^(?:[0-9]{4}-[0-9]{2}-[0-9]{2})?$",
+              "title": "Start Date",
+              "type": "string"
+            },
+            "end_date": {
+              "default": "",
+              "description": "北京时间业务日期YYYY-MM-DD，含端点；空字符串表示缺省。只给起点时向后展开默认窗口，只给终点时向前展开，窗口长度见工具说明。",
+              "pattern": "^(?:[0-9]{4}-[0-9]{2}-[0-9]{2})?$",
+              "title": "End Date",
+              "type": "string"
+            }
+          },
+          "required": [
+            "indicator"
+          ],
+          "title": "get_macro_indicatorArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "MacroMetric": {
+              "properties": {
+                "series": {
+                  "enum": [
+                    "national",
+                    "urban",
+                    "rural",
+                    "primary",
+                    "secondary",
+                    "tertiary"
+                  ],
+                  "title": "Series",
+                  "type": "string"
+                },
+                "metric": {
+                  "enum": [
+                    "index",
+                    "yoy_pct",
+                    "mom_pct",
+                    "ytd_index",
+                    "gdp"
+                  ],
+                  "title": "Metric",
+                  "type": "string"
+                },
+                "basis": {
+                  "enum": [
+                    "monthly",
+                    "year_to_date"
+                  ],
+                  "title": "Basis",
+                  "type": "string"
+                },
+                "value": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "Value"
+                },
+                "unit": {
+                  "enum": [
+                    "index_base_100",
+                    "percent",
+                    "CNY_100_million"
+                  ],
+                  "title": "Unit",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "series",
+                "metric",
+                "basis",
+                "value",
+                "unit"
+              ],
+              "title": "MacroMetric",
+              "type": "object"
+            },
+            "MacroObservation": {
+              "properties": {
+                "indicator": {
+                  "description": "CPI 为中国居民消费价格指数，GDP 为中国国内生产总值。",
+                  "enum": [
+                    "CPI",
+                    "GDP"
+                  ],
+                  "title": "Indicator",
+                  "type": "string"
+                },
+                "frequency": {
+                  "enum": [
+                    "monthly",
+                    "quarterly"
+                  ],
+                  "title": "Frequency",
+                  "type": "string"
+                },
+                "period_end": {
+                  "description": "月末或季末观察期日期",
+                  "format": "date",
+                  "title": "Period End",
+                  "type": "string"
+                },
+                "publication_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "主源给出实际发布日期时填写",
+                  "title": "Publication Date"
+                },
+                "metrics": {
+                  "items": {
+                    "$ref": "#/$defs/MacroMetric"
+                  },
+                  "title": "Metrics",
+                  "type": "array"
+                },
+                "source": {
+                  "const": "eastmoney",
+                  "default": "eastmoney",
+                  "title": "Source",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "indicator",
+                "frequency",
+                "period_end",
+                "metrics"
+              ],
+              "title": "MacroObservation",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/MacroObservation"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[MacroObservation]",
+          "type": "object"
+        }
+      }
+    ],
+    "news": [
+      {
+        "name": "get_earnings_calendar",
+        "description": "按当前预约日或实际披露日命中（或关系）查询沪深财报日程，默认今天起30天。返回首次预约、变更、当前预约、实际披露日和命中类型。每种日期查询最多20页，超量须缩小范围。只给start_date=2026-11-01时，终点补为2026-11-30。",
+        "read_only_hint": true,
+        "schema_fingerprint": "925bd3f3b9c1b05c1c946b6dc74a4a29c6ac5e900351a1f9eae440959d7603ea",
+        "input_schema": {
+          "properties": {
+            "start_date": {
+              "default": "",
+              "description": "北京时间业务日期YYYY-MM-DD，含端点；空字符串表示缺省。只给起点时向后展开默认窗口，只给终点时向前展开，窗口长度见工具说明。",
+              "pattern": "^(?:[0-9]{4}-[0-9]{2}-[0-9]{2})?$",
+              "title": "Start Date",
+              "type": "string"
+            },
+            "end_date": {
+              "default": "",
+              "description": "北京时间业务日期YYYY-MM-DD，含端点；空字符串表示缺省。只给起点时向后展开默认窗口，只给终点时向前展开，窗口长度见工具说明。",
+              "pattern": "^(?:[0-9]{4}-[0-9]{2}-[0-9]{2})?$",
+              "title": "End Date",
+              "type": "string"
+            }
+          },
+          "title": "get_earnings_calendarArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "EarningsMatch": {
+              "properties": {
+                "symbol": {
+                  "description": "resolve_symbol 返回的沪深股票标准代码，例如 600519.SH。",
+                  "pattern": "^[0-9]{6}\\.(SH|SZ)$",
+                  "title": "Symbol",
+                  "type": "string"
+                },
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "report_date": {
+                  "format": "date",
+                  "title": "Report Date",
+                  "type": "string"
+                },
+                "first_appointment_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "First Appointment Date"
+                },
+                "change_dates": {
+                  "description": "按预约变更次数的顺序排列",
+                  "items": {
+                    "format": "date",
+                    "type": "string"
+                  },
+                  "title": "Change Dates",
+                  "type": "array"
+                },
+                "current_appointment_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Current Appointment Date"
+                },
+                "actual_disclosure_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Actual Disclosure Date"
+                },
+                "url": {
+                  "anyOf": [
+                    {
+                      "format": "uri",
+                      "maxLength": 2083,
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Url"
+                },
+                "source": {
+                  "const": "eastmoney",
+                  "default": "eastmoney",
+                  "title": "Source",
+                  "type": "string"
+                },
+                "matched_date_types": {
+                  "items": {
+                    "enum": [
+                      "current_appointment",
+                      "actual_disclosure"
+                    ],
+                    "type": "string"
+                  },
+                  "title": "Matched Date Types",
+                  "type": "array"
+                }
+              },
+              "required": [
+                "symbol",
+                "name",
+                "report_date",
+                "change_dates",
+                "matched_date_types"
+              ],
+              "title": "EarningsMatch",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/EarningsMatch"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[EarningsMatch]",
+          "type": "object"
+        }
+      },
+      {
+        "name": "get_filings",
+        "description": "查询单只沪深股票的东财公告，按披露日倒序，返回类型、可识别的报告期和详情链接。",
+        "read_only_hint": true,
+        "schema_fingerprint": "4b4a82d0ae9ebfbc3b5f2b9314582e95b2a4aa509391a135b0926826b861487b",
+        "input_schema": {
+          "properties": {
+            "symbol": {
+              "description": "resolve_symbol 返回的沪深股票标准代码，例如 600519.SH。",
+              "pattern": "^[0-9]{6}\\.(SH|SZ)$",
+              "title": "Symbol",
+              "type": "string"
+            },
+            "limit": {
+              "default": 10,
+              "description": "最多返回的记录数，范围 1–100。",
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "symbol"
+          ],
+          "title": "get_filingsArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "Filing": {
+              "properties": {
+                "filing_id": {
+                  "title": "Filing Id",
+                  "type": "string"
+                },
+                "symbol": {
+                  "description": "resolve_symbol 返回的沪深股票标准代码，例如 600519.SH。",
+                  "pattern": "^[0-9]{6}\\.(SH|SZ)$",
+                  "title": "Symbol",
+                  "type": "string"
+                },
+                "title": {
+                  "title": "Title",
+                  "type": "string"
+                },
+                "categories": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Categories",
+                  "type": "array"
+                },
+                "disclosure_date": {
+                  "format": "date",
+                  "title": "Disclosure Date",
+                  "type": "string"
+                },
+                "report_date": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "公告标题可明确识别的财报期末",
+                  "title": "Report Date"
+                },
+                "url": {
+                  "format": "uri",
+                  "maxLength": 2083,
+                  "minLength": 1,
+                  "title": "Url",
+                  "type": "string"
+                },
+                "source": {
+                  "const": "eastmoney",
+                  "default": "eastmoney",
+                  "title": "Source",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "filing_id",
+                "symbol",
+                "title",
+                "categories",
+                "disclosure_date",
+                "url"
+              ],
+              "title": "Filing",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/Filing"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[Filing]",
+          "type": "object"
+        }
+      },
+      {
+        "name": "search_news",
+        "description": "搜索东财公司或主题新闻，在来源首批最多10条中按日期筛选，默认最近7天，按发布时间倒序返回标题、时间、媒体、链接与来源。只给end_date=2026-11-10时，起点补为2026-11-04。",
+        "read_only_hint": true,
+        "schema_fingerprint": "99efa5b936a75d6ebef0325a59eb6d0f47b02f15d1e5d56c039b9cf3ebc58743",
+        "input_schema": {
+          "properties": {
+            "keyword": {
+              "description": "公司或主题关键词；原始输入 1–128 字符（含首尾空白），随后去除首尾空白，剩余内容须非空且可打印。",
+              "maxLength": 128,
+              "minLength": 1,
+              "title": "Keyword",
+              "type": "string"
+            },
+            "start_date": {
+              "default": "",
+              "description": "北京时间业务日期YYYY-MM-DD，含端点；空字符串表示缺省。只给起点时向后展开默认窗口，只给终点时向前展开，窗口长度见工具说明。",
+              "pattern": "^(?:[0-9]{4}-[0-9]{2}-[0-9]{2})?$",
+              "title": "Start Date",
+              "type": "string"
+            },
+            "end_date": {
+              "default": "",
+              "description": "北京时间业务日期YYYY-MM-DD，含端点；空字符串表示缺省。只给起点时向后展开默认窗口，只给终点时向前展开，窗口长度见工具说明。",
+              "pattern": "^(?:[0-9]{4}-[0-9]{2}-[0-9]{2})?$",
+              "title": "End Date",
+              "type": "string"
+            },
+            "limit": {
+              "default": 10,
+              "description": "返回条数上限，默认10。兼容1–100，来源首批最多10条，日期过滤后可能更少。",
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "keyword"
+          ],
+          "title": "search_newsArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "NewsArticle": {
+              "properties": {
+                "article_id": {
+                  "title": "Article Id",
+                  "type": "string"
+                },
+                "title": {
+                  "title": "Title",
+                  "type": "string"
+                },
+                "published_at": {
+                  "format": "date-time",
+                  "title": "Published At",
+                  "type": "string"
+                },
+                "publisher": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Publisher"
+                },
+                "url": {
+                  "anyOf": [
+                    {
+                      "format": "uri",
+                      "maxLength": 2083,
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Url"
+                },
+                "source": {
+                  "const": "eastmoney",
+                  "default": "eastmoney",
+                  "title": "Source",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "article_id",
+                "title",
+                "published_at"
+              ],
+              "title": "NewsArticle",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/NewsArticle"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[NewsArticle]",
+          "type": "object"
+        }
+      }
+    ],
+    "knowledge": [
+      {
+        "name": "search_policy",
+        "description": "检索政策知识库 finance_policy，返回相关片段、标题、来源页码、分数和分页信息。无匹配或集合为空时 items 为空。",
+        "read_only_hint": true,
+        "schema_fingerprint": "6b72374ed3948041f18fbf8c9aa5208167da5fc8154890d2dfea320c6c6010cb",
+        "input_schema": {
+          "$defs": {
+            "PolicyFilters": {
+              "additionalProperties": false,
+              "description": "政策检索的日期过滤（政策文档无券商/报告类型语义）。",
+              "properties": {
+                "date_from": {
+                  "anyOf": [
+                    {
+                      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "政策发布日期起点 YYYY-MM-DD，含端点；null 表示不限，不能晚于 date_to。",
+                  "title": "Date From"
+                },
+                "date_to": {
+                  "anyOf": [
+                    {
+                      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "政策发布日期终点 YYYY-MM-DD，含端点；null 表示不限。",
+                  "title": "Date To"
+                }
+              },
+              "title": "PolicyFilters",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "query": {
+              "description": "检索问题或关键词；原始输入 1–500 字符（含首尾空白），随后去除首尾空白，剩余内容须非空。",
+              "maxLength": 500,
+              "minLength": 1,
+              "title": "Query",
+              "type": "string"
+            },
+            "page": {
+              "default": 1,
+              "description": "页码，从 1 开始；page × page_size 必须不超过 200。",
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            },
+            "page_size": {
+              "default": 8,
+              "description": "每页最多 1–50 条，默认 8；与页码乘积不超过 200。",
+              "maximum": 50,
+              "minimum": 1,
+              "title": "Page Size",
+              "type": "integer"
+            },
+            "filters": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/PolicyFilters"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "可选政策发布日期过滤；省略表示不限制。"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "title": "search_policyArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "SearchHit": {
+              "description": "单条检索结果。",
+              "properties": {
+                "id": {
+                  "description": "检索片段的标识；来源未提供时为空字符串。",
+                  "title": "Id",
+                  "type": "string"
+                },
+                "source": {
+                  "description": "来源文档标识或路径，用于关联原文。",
+                  "title": "Source",
+                  "type": "string"
+                },
+                "title": {
+                  "description": "来源文档标题；缺失时显示默认标题。",
+                  "title": "Title",
+                  "type": "string"
+                },
+                "content": {
+                  "description": "命中的片段内容，可能为文本或表格，不代表完整文档。",
+                  "title": "Content",
+                  "type": "string"
+                },
+                "score": {
+                  "description": "本次查询的展示分数：采用 rerank_score（含其失败回退分），缺失时采用融合分；候选最高分大于 0 时除以该最高分，否则保留原分。不是概率，不可跨查询比较或作为统一置信度阈值；缺分时为 0。",
+                  "title": "Score",
+                  "type": "number"
+                },
+                "rerank_score": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "通常为重排模型的原始相关性分数，未做本次查询的最大值归一化，不是概率；重排失败回退时可能填入融合分，非空不保证模型重排成功；未提供该分数时为 null。",
+                  "title": "Rerank Score"
+                },
+                "chunk": {
+                  "description": "文档内从 0 开始的片段序号；历史数据缺失时也为 0，请结合 id/source 定位。",
+                  "title": "Chunk",
+                  "type": "integer"
+                },
+                "block_type": {
+                  "description": "片段类型，如 text/table/image；缺失时为 text。",
+                  "title": "Block Type",
+                  "type": "string"
+                },
+                "start_page": {
+                  "description": "片段在来源文档的起始页码；无法定位时为 0，不应推测页码。",
+                  "title": "Start Page",
+                  "type": "integer"
+                },
+                "end_page": {
+                  "description": "片段在来源文档的结束页码，含端点；无法定位时为 0。",
+                  "title": "End Page",
+                  "type": "integer"
+                },
+                "heading_path": {
+                  "description": "从顶层标题到片段所在标题的路径；缺失时为空字符串。",
+                  "title": "Heading Path",
+                  "type": "string"
+                },
+                "date": {
+                  "description": "来源文档的报告或发布日期；未提取到时为空字符串，不等同于 as_of。",
+                  "title": "Date",
+                  "type": "string"
+                },
+                "report_type": {
+                  "description": "研报类型，如个股/行业/宏观/策略；未知或不适用时为空字符串。",
+                  "title": "Report Type",
+                  "type": "string"
+                },
+                "broker": {
+                  "description": "研报发布券商；未知或不适用时为空字符串。",
+                  "title": "Broker",
+                  "type": "string"
+                },
+                "ingested_at": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "文档入库时刻，UTC ISO 8601；未知时为 null。",
+                  "title": "Ingested At"
+                }
+              },
+              "required": [
+                "id",
+                "source",
+                "title",
+                "content",
+                "score",
+                "chunk",
+                "block_type",
+                "start_page",
+                "end_page",
+                "heading_path",
+                "date",
+                "report_type",
+                "broker"
+              ],
+              "title": "SearchHit",
+              "type": "object"
+            }
+          },
+          "description": "检索响应；``as_of`` 为服务端响应时刻（UTC），仅用于标识数据新鲜度。",
+          "properties": {
+            "collection": {
+              "description": "本次检索的服务端固定集合，finance_report 或 finance_policy。",
+              "title": "Collection",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "生成本次响应的 UTC ISO 8601 时刻，不代表来源文档的更新或发布日期。",
+              "title": "As Of",
+              "type": "string"
+            },
+            "page": {
+              "description": "当前页码，从 1 开始。",
+              "title": "Page",
+              "type": "integer"
+            },
+            "page_size": {
+              "description": "请求的每页条数上限；实际条数见 returned。",
+              "title": "Page Size",
+              "type": "integer"
+            },
+            "returned": {
+              "description": "当前页实际返回的片段数，等于 items 长度，不是知识库总匹配数。",
+              "title": "Returned",
+              "type": "integer"
+            },
+            "has_more": {
+              "description": "本次检索的有限候选池中是否还有下一页；不代表知识库已穷尽。",
+              "title": "Has More",
+              "type": "boolean"
+            },
+            "next_page": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "has_more 为 true 时的下一页页码，否则为 null；后续请求仍受 page × page_size ≤ 200 约束。",
+              "title": "Next Page"
+            },
+            "items": {
+              "description": "当前页的相关片段；无匹配或集合为空时为空列表。",
+              "items": {
+                "$ref": "#/$defs/SearchHit"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "collection",
+            "as_of",
+            "page",
+            "page_size",
+            "returned",
+            "has_more",
+            "next_page",
+            "items"
+          ],
+          "title": "SearchResponse",
+          "type": "object"
+        }
+      },
+      {
+        "name": "search_research",
+        "description": "检索研报知识库 finance_report，返回相关片段、标题、来源页码、相关性分数和分页信息。无匹配时 items 为空。",
+        "read_only_hint": true,
+        "schema_fingerprint": "df63f9267db6565b581fc12b438581a9f885735e525de634433dc8450acdfb43",
+        "input_schema": {
+          "$defs": {
+            "SearchFilters": {
+              "additionalProperties": false,
+              "description": "检索过滤条件：只支持 broker / report_type / date。",
+              "properties": {
+                "broker": {
+                  "description": "券商名称列表，最多 20 个；空列表表示不限。",
+                  "items": {
+                    "maxLength": 64,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "maxItems": 20,
+                  "title": "Broker",
+                  "type": "array"
+                },
+                "report_type": {
+                  "description": "报告类型列表，取值见 enum；空列表表示不限。",
+                  "items": {
+                    "enum": [
+                      "个股",
+                      "行业",
+                      "宏观",
+                      "策略"
+                    ],
+                    "type": "string"
+                  },
+                  "maxItems": 4,
+                  "title": "Report Type",
+                  "type": "array"
+                },
+                "date_from": {
+                  "anyOf": [
+                    {
+                      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "报告日期起点 YYYY-MM-DD，含端点；null 表示不限，不得晚于 date_to。",
+                  "title": "Date From"
+                },
+                "date_to": {
+                  "anyOf": [
+                    {
+                      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "报告日期终点 YYYY-MM-DD，含端点；null 表示不限。",
+                  "title": "Date To"
+                }
+              },
+              "title": "SearchFilters",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "query": {
+              "description": "检索问题或关键词；原始输入 1–500 字符（含首尾空白），随后去除首尾空白，剩余内容须非空。",
+              "maxLength": 500,
+              "minLength": 1,
+              "title": "Query",
+              "type": "string"
+            },
+            "page": {
+              "default": 1,
+              "description": "页码，从 1 开始；page × page_size 必须不超过 200。",
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            },
+            "page_size": {
+              "default": 8,
+              "description": "每页最多 1–50 条，默认 8；与页码乘积不超过 200。",
+              "maximum": 50,
+              "minimum": 1,
+              "title": "Page Size",
+              "type": "integer"
+            },
+            "filters": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/SearchFilters"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "可选券商、报告类型、报告日期过滤；省略表示不限制。"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "title": "search_researchArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "SearchHit": {
+              "description": "单条检索结果。",
+              "properties": {
+                "id": {
+                  "description": "检索片段的标识；来源未提供时为空字符串。",
+                  "title": "Id",
+                  "type": "string"
+                },
+                "source": {
+                  "description": "来源文档标识或路径，用于关联原文。",
+                  "title": "Source",
+                  "type": "string"
+                },
+                "title": {
+                  "description": "来源文档标题；缺失时显示默认标题。",
+                  "title": "Title",
+                  "type": "string"
+                },
+                "content": {
+                  "description": "命中的片段内容，可能为文本或表格，不代表完整文档。",
+                  "title": "Content",
+                  "type": "string"
+                },
+                "score": {
+                  "description": "本次查询的展示分数：采用 rerank_score（含其失败回退分），缺失时采用融合分；候选最高分大于 0 时除以该最高分，否则保留原分。不是概率，不可跨查询比较或作为统一置信度阈值；缺分时为 0。",
+                  "title": "Score",
+                  "type": "number"
+                },
+                "rerank_score": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "通常为重排模型的原始相关性分数，未做本次查询的最大值归一化，不是概率；重排失败回退时可能填入融合分，非空不保证模型重排成功；未提供该分数时为 null。",
+                  "title": "Rerank Score"
+                },
+                "chunk": {
+                  "description": "文档内从 0 开始的片段序号；历史数据缺失时也为 0，请结合 id/source 定位。",
+                  "title": "Chunk",
+                  "type": "integer"
+                },
+                "block_type": {
+                  "description": "片段类型，如 text/table/image；缺失时为 text。",
+                  "title": "Block Type",
+                  "type": "string"
+                },
+                "start_page": {
+                  "description": "片段在来源文档的起始页码；无法定位时为 0，不应推测页码。",
+                  "title": "Start Page",
+                  "type": "integer"
+                },
+                "end_page": {
+                  "description": "片段在来源文档的结束页码，含端点；无法定位时为 0。",
+                  "title": "End Page",
+                  "type": "integer"
+                },
+                "heading_path": {
+                  "description": "从顶层标题到片段所在标题的路径；缺失时为空字符串。",
+                  "title": "Heading Path",
+                  "type": "string"
+                },
+                "date": {
+                  "description": "来源文档的报告或发布日期；未提取到时为空字符串，不等同于 as_of。",
+                  "title": "Date",
+                  "type": "string"
+                },
+                "report_type": {
+                  "description": "研报类型，如个股/行业/宏观/策略；未知或不适用时为空字符串。",
+                  "title": "Report Type",
+                  "type": "string"
+                },
+                "broker": {
+                  "description": "研报发布券商；未知或不适用时为空字符串。",
+                  "title": "Broker",
+                  "type": "string"
+                },
+                "ingested_at": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "文档入库时刻，UTC ISO 8601；未知时为 null。",
+                  "title": "Ingested At"
+                }
+              },
+              "required": [
+                "id",
+                "source",
+                "title",
+                "content",
+                "score",
+                "chunk",
+                "block_type",
+                "start_page",
+                "end_page",
+                "heading_path",
+                "date",
+                "report_type",
+                "broker"
+              ],
+              "title": "SearchHit",
+              "type": "object"
+            }
+          },
+          "description": "检索响应；``as_of`` 为服务端响应时刻（UTC），仅用于标识数据新鲜度。",
+          "properties": {
+            "collection": {
+              "description": "本次检索的服务端固定集合，finance_report 或 finance_policy。",
+              "title": "Collection",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "生成本次响应的 UTC ISO 8601 时刻，不代表来源文档的更新或发布日期。",
+              "title": "As Of",
+              "type": "string"
+            },
+            "page": {
+              "description": "当前页码，从 1 开始。",
+              "title": "Page",
+              "type": "integer"
+            },
+            "page_size": {
+              "description": "请求的每页条数上限；实际条数见 returned。",
+              "title": "Page Size",
+              "type": "integer"
+            },
+            "returned": {
+              "description": "当前页实际返回的片段数，等于 items 长度，不是知识库总匹配数。",
+              "title": "Returned",
+              "type": "integer"
+            },
+            "has_more": {
+              "description": "本次检索的有限候选池中是否还有下一页；不代表知识库已穷尽。",
+              "title": "Has More",
+              "type": "boolean"
+            },
+            "next_page": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "has_more 为 true 时的下一页页码，否则为 null；后续请求仍受 page × page_size ≤ 200 约束。",
+              "title": "Next Page"
+            },
+            "items": {
+              "description": "当前页的相关片段；无匹配或集合为空时为空列表。",
+              "items": {
+                "$ref": "#/$defs/SearchHit"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "collection",
+            "as_of",
+            "page",
+            "page_size",
+            "returned",
+            "has_more",
+            "next_page",
+            "items"
+          ],
+          "title": "SearchResponse",
+          "type": "object"
+        }
+      }
+    ],
+    "futures": [
+      {
+        "name": "get_commodity_price",
+        "description": "查询东财商品期货主连或月份合约的最新报价，返回合约身份、价格和源更新时间。仅支持上期所、大商所、郑商所、上期能源、广期所当前目录；不含现货、金融期货、期权、次主连或历史K线。主连不是交割合约，最新价不是结算价；可能延迟或停留在旧时点。未核验的币种、计价单位为null，缺价返回available=false；无此合约或源异常为工具错误。",
+        "read_only_hint": true,
+        "schema_fingerprint": "f606dfd5c6fa9c6ea03c21d124ed4446102e6ae3705077b9d37dfdbc99fbdab5",
+        "input_schema": {
+          "properties": {
+            "symbol": {
+              "description": "东财商品期货标识，如225.lcm碳酸锂主连、225.lc2705月份合约、113.cum沪铜主连；仅支持113/114/115/142/225五所，代码按当前目录确认，大小写不敏感。",
+              "maxLength": 16,
+              "pattern": "^(113|114|115|142|225)\\.[A-Za-z]{1,3}(?:[mM]|[0-9]{3,4})$",
+              "title": "Symbol",
+              "type": "string"
+            }
+          },
+          "required": [
+            "symbol"
+          ],
+          "title": "get_commodity_priceArguments",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "output_schema": {
+          "$defs": {
+            "CommodityPrice": {
+              "properties": {
+                "symbol": {
+                  "description": "东财商品期货标识，如225.lcm碳酸锂主连、225.lc2705月份合约、113.cum沪铜主连；仅支持113/114/115/142/225五所，代码按当前目录确认，大小写不敏感。",
+                  "maxLength": 16,
+                  "pattern": "^(113|114|115|142|225)\\.[A-Za-z]{1,3}(?:[mM]|[0-9]{3,4})$",
+                  "title": "Symbol",
+                  "type": "string"
+                },
+                "contract_code": {
+                  "description": "东财目录规范合约代码；郑商所等市场保留源大小写。",
+                  "title": "Contract Code",
+                  "type": "string"
+                },
+                "contract_name": {
+                  "description": "目录合约名称，主连不等于具体交割月份。",
+                  "title": "Contract Name",
+                  "type": "string"
+                },
+                "commodity_code": {
+                  "description": "目标交易所目录中的商品代码。",
+                  "title": "Commodity Code",
+                  "type": "string"
+                },
+                "commodity_name": {
+                  "description": "目标交易所目录中的商品名称。",
+                  "title": "Commodity Name",
+                  "type": "string"
+                },
+                "exchange": {
+                  "description": "经目录核实的商品期货交易所。",
+                  "enum": [
+                    "SHFE",
+                    "DCE",
+                    "CZCE",
+                    "INE",
+                    "GFEX"
+                  ],
+                  "title": "Exchange",
+                  "type": "string"
+                },
+                "contract_type": {
+                  "description": "main_continuous为主连展示报价，delivery为具体月份合约；不推算主连对应的交割合约。",
+                  "enum": [
+                    "main_continuous",
+                    "delivery"
+                  ],
+                  "title": "Contract Type",
+                  "type": "string"
+                },
+                "price": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "description": "东财最新报价，Decimal十进制字符串；fltt=2原值，不二次缩放，不等于现货价、结算价或日收盘价。",
+                  "title": "Price"
+                },
+                "currency": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "有规格证据才填写币种；源快照未提供，未核验时为null，不可自行推断。",
+                  "title": "Currency"
+                },
+                "price_unit": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "有规格证据才填写计价单位；未核验时为null，不能一律视为元/吨。",
+                  "title": "Price Unit"
+                },
+                "source_time": {
+                  "anyOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "源更新时间，Asia/Shanghai时区；缺失为null，不等于最后成交时间或交易日，不保证实时性。",
+                  "title": "Source Time"
+                },
+                "source": {
+                  "const": "eastmoney",
+                  "default": "eastmoney",
+                  "description": "东财期货目录及报价，无降级源。",
+                  "title": "Source",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "symbol",
+                "contract_code",
+                "contract_name",
+                "commodity_code",
+                "commodity_name",
+                "exchange",
+                "contract_type",
+                "price"
+              ],
+              "title": "CommodityPrice",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "available": {
+              "description": "本次请求是否取得所需数据。false时查看reason；true且items为空表示查询成功但无匹配。执行错误通过MCP isError返回。",
+              "title": "Available",
+              "type": "boolean"
+            },
+            "domain": {
+              "description": "数据域：market / fundamentals / macro / news / futures",
+              "title": "Domain",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "description": "不可用原因；可用时为空",
+              "title": "Reason",
+              "type": "string"
+            },
+            "as_of": {
+              "description": "服务端生成响应的 UTC 时间",
+              "title": "As Of",
+              "type": "string"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/CommodityPrice"
+              },
+              "title": "Items",
+              "type": "array"
+            }
+          },
+          "required": [
+            "available",
+            "domain",
+            "as_of"
+          ],
+          "title": "QueryEnvelope[CommodityPrice]",
+          "type": "object"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,1332 @@
+[
+  {
+    "metric_id": "M-ef51582cf019fd4e",
+    "local_key": "revenue_yoy_calc",
+    "value": "0.070888",
+    "unit": "ratio",
+    "inputs": [
+      {
+        "key": "revenue_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "891.75",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 139,
+        "text_end": 145,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "832.72",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 159,
+        "text_end": 165,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-994943bf763d634b",
+    "local_key": "net_profit_attr_yoy_calc",
+    "value": "0.054351",
+    "unit": "ratio",
+    "inputs": [
+      {
+        "key": "net_profit_attr_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "318.53",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·归母净利润",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 199,
+        "text_end": 205,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "net_profit_attr_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "302.11",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·归母净利润",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 219,
+        "text_end": 225,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-daca4ab2f3d11ac7",
+    "local_key": "net_margin_attr_2024_calc",
+    "value": "0.357197",
+    "unit": "ratio",
+    "inputs": [
+      {
+        "key": "net_profit_attr_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "318.53",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·归母净利润",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 199,
+        "text_end": 205,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "891.75",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 139,
+        "text_end": 145,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-b5ab05227e7ddcdc",
+    "local_key": "net_margin_attr_2023_calc",
+    "value": "0.362799",
+    "unit": "ratio",
+    "inputs": [
+      {
+        "key": "net_profit_attr_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "302.11",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·归母净利润",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 219,
+        "text_end": 225,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "832.72",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 159,
+        "text_end": 165,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-1a52c1cf2135e5f2",
+    "local_key": "net_margin_attr_change_calc",
+    "value": "-0.5602",
+    "unit": "percentage_points",
+    "inputs": [
+      {
+        "key": "net_profit_attr_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "318.53",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·归母净利润",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 199,
+        "text_end": 205,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "net_profit_attr_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "302.11",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·归母净利润",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 219,
+        "text_end": 225,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "891.75",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 139,
+        "text_end": 145,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "832.72",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 159,
+        "text_end": 165,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-a705d4361c440c72",
+    "local_key": "selling_expense_ratio_2024_calc",
+    "value": "0.119899",
+    "unit": "ratio",
+    "inputs": [
+      {
+        "key": "selling_expense_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "106.92",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·销售费用",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 382,
+        "text_end": 388,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "891.75",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 139,
+        "text_end": 145,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-5a761d0caf81417c",
+    "local_key": "growth_scissors_revenue_minus_profit_pp",
+    "value": "1.6500",
+    "unit": "percentage_points",
+    "inputs": [
+      {
+        "key": "revenue_yoy_disclosed",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+7.09（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露同比·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 177,
+        "text_end": 187,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "net_profit_attr_yoy_disclosed",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+5.44（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露同比·归母净利润",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 237,
+        "text_end": 247,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-a63dd5fd04b90bb8",
+    "local_key": "selling_expense_2023_implied",
+    "value": "77.9426",
+    "unit": "亿元",
+    "inputs": [
+      {
+        "key": "selling_expense_ratio_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "9.36（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露值·销售费用率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 444,
+        "text_end": 453,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "832.72",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 159,
+        "text_end": 165,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-20b6cd920bc55a40",
+    "local_key": "selling_expense_yoy_implied",
+    "value": "0.371779",
+    "unit": "ratio",
+    "inputs": [
+      {
+        "key": "selling_expense_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "106.92",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·销售费用",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 382,
+        "text_end": 388,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "selling_expense_ratio_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "9.36（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露值·销售费用率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 444,
+        "text_end": 453,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "832.72",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 159,
+        "text_end": 165,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-0e44dcf3408553f2",
+    "local_key": "selling_expense_increment_implied",
+    "value": "28.9774",
+    "unit": "亿元",
+    "inputs": [
+      {
+        "key": "selling_expense_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "106.92",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·销售费用",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 382,
+        "text_end": 388,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "selling_expense_ratio_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "9.36（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露值·销售费用率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 444,
+        "text_end": 453,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "832.72",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 159,
+        "text_end": 165,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-9b6877b74a2e4984",
+    "local_key": "revenue_increment",
+    "value": "59.0300",
+    "unit": "亿元",
+    "inputs": [
+      {
+        "key": "revenue_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "891.75",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 139,
+        "text_end": 145,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "832.72",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 159,
+        "text_end": 165,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-6d9c37e2c089e87e",
+    "local_key": "selling_expense_increment_share_of_revenue_increment",
+    "value": "0.490893",
+    "unit": "ratio",
+    "inputs": [
+      {
+        "key": "selling_expense_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "106.92",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·销售费用",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 382,
+        "text_end": 388,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "selling_expense_ratio_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "9.36（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露值·销售费用率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 444,
+        "text_end": 453,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "832.72",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 159,
+        "text_end": 165,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "891.75",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 139,
+        "text_end": 145,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-9184d5e4a61e8ba3",
+    "local_key": "gross_profit_2024_implied",
+    "value": "687.0934",
+    "unit": "亿元",
+    "inputs": [
+      {
+        "key": "revenue_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "891.75",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 139,
+        "text_end": 145,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "gross_margin_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "77.05（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露值·毛利率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 257,
+        "text_end": 267,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-a10aaad1bd1eb28c",
+    "local_key": "gross_profit_2023_implied",
+    "value": "631.1185",
+    "unit": "亿元",
+    "inputs": [
+      {
+        "key": "revenue_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "832.72",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 159,
+        "text_end": 165,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "gross_margin_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "75.79（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露值·毛利率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 277,
+        "text_end": 287,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-082043c8ea9bd8d1",
+    "local_key": "gross_profit_increment_implied",
+    "value": "55.9749",
+    "unit": "亿元",
+    "inputs": [
+      {
+        "key": "revenue_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "891.75",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 139,
+        "text_end": 145,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "832.72",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 159,
+        "text_end": 165,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "gross_margin_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "77.05（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露值·毛利率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 257,
+        "text_end": 267,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "gross_margin_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "75.79（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露值·毛利率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 277,
+        "text_end": 287,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-b5f32b2c040d07ea",
+    "local_key": "selling_expense_increment_share_of_gross_profit_increment",
+    "value": "0.517686",
+    "unit": "ratio",
+    "inputs": [
+      {
+        "key": "selling_expense_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "106.92",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·销售费用",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 382,
+        "text_end": 388,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "selling_expense_ratio_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "9.36（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露值·销售费用率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 444,
+        "text_end": 453,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "832.72",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 159,
+        "text_end": 165,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "891.75",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 139,
+        "text_end": 145,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "832.72",
+        "unit": "亿元",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "合并报表·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 159,
+        "text_end": 165,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "gross_margin_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "77.05（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2024-01-01/2024-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露值·毛利率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 257,
+        "text_end": 267,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "gross_margin_2023",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "75.79（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2023-01-01/2023-12-31",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露值·毛利率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 277,
+        "text_end": 287,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-638624e0d2b0d991",
+    "local_key": "selling_expense_growth_multiple_of_revenue_growth",
+    "value": "5.2398",
+    "unit": "x",
+    "inputs": [
+      {
+        "key": "selling_expense_yoy_disclosed",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+37.15（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露同比·销售费用",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 399,
+        "text_end": 410,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "revenue_yoy_disclosed",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+7.09（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露同比·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 177,
+        "text_end": 187,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-f18bb0ee5139bdc0",
+    "local_key": "net_margin_impact_pretax_pp",
+    "value": "-1.3700",
+    "unit": "percentage_points",
+    "inputs": [
+      {
+        "key": "gross_margin_change_disclosed",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+1.26个百分点",
+        "unit": "pp",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露变动·毛利率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 297,
+        "text_end": 306,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "selling_expense_ratio_change_disclosed",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+2.63个百分点",
+        "unit": "pp",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露变动·销售费用率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 465,
+        "text_end": 474,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-bb8511377d7a0785",
+    "local_key": "net_margin_impact_after_tax_pp",
+    "value": "-1.0275",
+    "unit": "percentage_points",
+    "inputs": [
+      {
+        "key": "gross_margin_change_disclosed",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+1.26个百分点",
+        "unit": "pp",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露变动·毛利率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 297,
+        "text_end": 306,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "selling_expense_ratio_change_disclosed",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+2.63个百分点",
+        "unit": "pp",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露变动·销售费用率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 465,
+        "text_end": 474,
+        "extraction": "text-extraction"
+      },
+      {
+        "assumption_key": "effective_tax_rate_for_margin_decomposition",
+        "value": "0.25",
+        "basis": "E-000001 未披露所得税费用、实际税率与少数股东损益。分解仅用中国法定企业所得税率25%作为税前→税后折算系数，属分析师假设，不是披露事实。",
+        "impact": "该系数只影响“费用率上行对归母净利率的税后冲击”这一中间量；披露的-0.56pp与+2.63pp为原文事实，不随假设变化。若实际税率偏离25%，分解残差随之变化，但“毛利率上行被费用率上行完全覆盖并有余”的方向不变。"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-21e88f89dff93209",
+    "local_key": "net_margin_decomposition_residual_pp",
+    "value": "0.4675",
+    "unit": "percentage_points",
+    "inputs": [
+      {
+        "key": "net_margin_attr_change_disclosed",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "-0.56个百分点",
+        "unit": "pp",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露变动·归母净利率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 362,
+        "text_end": 371,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "gross_margin_change_disclosed",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+1.26个百分点",
+        "unit": "pp",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露变动·毛利率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 297,
+        "text_end": 306,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "selling_expense_ratio_change_disclosed",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+2.63个百分点",
+        "unit": "pp",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露变动·销售费用率",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 465,
+        "text_end": 474,
+        "extraction": "text-extraction"
+      },
+      {
+        "assumption_key": "effective_tax_rate_for_margin_decomposition",
+        "value": "0.25",
+        "basis": "E-000001 未披露所得税费用、实际税率与少数股东损益。分解仅用中国法定企业所得税率25%作为税前→税后折算系数，属分析师假设，不是披露事实。",
+        "impact": "该系数只影响“费用率上行对归母净利率的税后冲击”这一中间量；披露的-0.56pp与+2.63pp为原文事实，不随假设变化。若实际税率偏离25%，分解残差随之变化，但“毛利率上行被费用率上行完全覆盖并有余”的方向不变。"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-d517b9b3e3bd506e",
+    "local_key": "revenue_growth_gap_vs_industry_pp",
+    "value": "1.7900",
+    "unit": "percentage_points",
+    "inputs": [
+      {
+        "key": "revenue_yoy_disclosed",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+7.09（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露同比·营业总收入",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 177,
+        "text_end": 187,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "industry_revenue_yoy",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+5.30（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "全国规模以上白酒企业（行业口径）",
+        "basis": "行业口径·规上白酒企业销售收入同比",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 846,
+        "text_end": 856,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-5771c6ab0111d363",
+    "local_key": "net_profit_growth_gap_vs_industry_pp",
+    "value": "-2.3200",
+    "unit": "percentage_points",
+    "inputs": [
+      {
+        "key": "net_profit_attr_yoy_disclosed",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+5.44（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液(000858.SZ)",
+        "basis": "披露同比·归母净利润",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 237,
+        "text_end": 247,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "industry_profit_total_yoy",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "+7.76（百分比）",
+        "unit": "%",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "全国规模以上白酒企业（行业口径）",
+        "basis": "行业口径·规上白酒企业利润总额同比",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 901,
+        "text_end": 911,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-d7fe27aeb5b3414d",
+    "local_key": "p5_wholesale_price_discount_to_exfactory_low",
+    "value": "0.097154",
+    "unit": "ratio",
+    "inputs": [
+      {
+        "key": "p5_wholesale_price_end_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "910-920元/瓶",
+        "unit": "元/瓶",
+        "currency": "CNY",
+        "period": "2024年末",
+        "entity": "五粮液普五渠道",
+        "basis": "渠道批价区间·非公司披露",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 715,
+        "text_end": 725,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "p5_exfactory_price_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "1019元/瓶",
+        "unit": "元/瓶",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液普五",
+        "basis": "出厂价·非审计",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 737,
+        "text_end": 744,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  },
+  {
+    "metric_id": "M-34983b4ad81f51df",
+    "local_key": "p5_wholesale_price_discount_to_exfactory_high",
+    "value": "0.106968",
+    "unit": "ratio",
+    "inputs": [
+      {
+        "key": "p5_wholesale_price_end_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "910-920元/瓶",
+        "unit": "元/瓶",
+        "currency": "CNY",
+        "period": "2024年末",
+        "entity": "五粮液普五渠道",
+        "basis": "渠道批价区间·非公司披露",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 715,
+        "text_end": 725,
+        "extraction": "text-extraction"
+      },
+      {
+        "key": "p5_exfactory_price_2024",
+        "evidence_id": "E-000001",
+        "content_hash": "20a4cc1781d713ead5cce79fe84fa3796398f817b5bb98307913791479e4481b",
+        "pointer": "/body",
+        "raw_value": "1019元/瓶",
+        "unit": "元/瓶",
+        "currency": "CNY",
+        "period": "2024年度",
+        "entity": "五粮液普五",
+        "basis": "出厂价·非审计",
+        "scale": "1",
+        "transformation": "identity",
+        "text_start": 737,
+        "text_end": 744,
+        "extraction": "text-extraction"
+      }
+    ],
+    "evidence_ids": [
+      "E-000001"
+    ]
+  }
+]

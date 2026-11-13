@@ -1,22 +1,47 @@
 [project]
 name = "research-copilot"
 version = "0.1.0"
-description = "A 股个股与行业研究的投研工作区（Planner 单节点骨架）"
+description = "本地对话式投研助手：研报规划、采集、分析、写作与审核"
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
 dependencies = [
     "fastapi>=0.115,<1.0",
-    "langgraph>=0.6,<2.0",
+    "filelock==4.2.4",
+    "httpx>=0.28,<1.0",
+    "jsonschema>=4.23,<5.0",
+    "langchain-core>=1.7.0,<2",
+    "langgraph>=1.2,<2.0",
+    "langgraph-checkpoint-postgres>=3.0,<4.0",
+    "matplotlib>=3.9,<4.0",
+    "mcp>=1.20,<2.0",
     "openai>=2,<3",
+    "psycopg[binary]>=3.2,<4.0",
+    "psycopg-pool>=3.2,<4.0",
     "pydantic>=2.11,<3.0",
     "pydantic-settings>=2.8,<3.0",
-    "uvicorn[standard]>=0.34,<1.0",
+    "pyyaml>=6.0,<7.0",
+    "rich>=14,<15",
+    "sqlalchemy[asyncio]>=2.0,<3.0",
+    "typer>=0.16,<1.0",
+    "uvicorn>=0.34,<1.0",
+    "deepagents==0.7.32",
+    "langchain>=1.4.7,<2",
+    "portalocker[win32]==4.0.0",
+    "packaging==26.3",
 ]
+
+[project.scripts]
+rc = "research_copilot.cli:main"
 
 [dependency-groups]
 dev = [
-    "httpx>=0.28,<1.0",
+    "aiosqlite>=0.21,<1",
+    "mypy==1.20.2",
     "pytest>=8.4,<10.0",
+    "pytest-asyncio>=1.0,<2.0",
+    "pytest-cov==7.0.0",
+    "ruff==0.15.1",
+    "types-pyyaml==6.0.12.20250915",
 ]
 
 [build-system]
@@ -29,3 +54,39 @@ packages = ["src/research_copilot"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = [
+    "load: 显式隔离负载实验；使用 -m 'db and load'，不作为默认回归",
+    "docker: 真实 Analysist Docker 沙盒与离线渲染集成测试（需预构建镜像）",
+    "db: 需要本地 PostgreSQL 的集成测试（默认跳过，用 -m db 显式运行）",
+    "live: 真实付费模型调用（默认跳过，需显式授权后运行）",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+
+[tool.ruff.lint.per-file-ignores]
+# These shipped execution scripts are hash-frozen resources. A cosmetic rename
+# must not change already approved resource identities.
+"src/research_copilot/resources/skills/analysist/financial-modeling/scripts/charts.py" = ["E741"]
+"src/research_copilot/resources/skills/analysist/financial-modeling/scripts/echarts_options.py" = ["E741"]
+# 独立运行脚本先注入项目路径再导入 research_copilot，属合法的导入顺序。
+"scripts/*.py" = ["E402"]
+
+[tool.mypy]
+python_version = "3.13"
+files = ["src/research_copilot"]
+ignore_missing_imports = true
+# Gate all annotated functions; gradual typing of existing dynamic agent glue
+# is tracked separately, rather than suppressing all errors per module.
+check_untyped_defs = false
+show_error_codes = true
+
+[tool.coverage.run]
+source = ["research_copilot"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true

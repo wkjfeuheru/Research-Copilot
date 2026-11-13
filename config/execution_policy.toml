@@ -1,0 +1,32 @@
+version = 1
+# WLY-20261108/09 多轮真实验收校准：完整运行实测已用 3.83M 仍未到审核与签核
+# （采集 0.73M、分析 1.46M、监督 0.87M、写作 0.77M），按 6M 预留余量。
+token_limit = 6000000
+call_limit = 160
+soft_warning_fraction = 0.8
+
+[stages.supervisor]
+# 第十轮实测：16 次调用已用 43 万，单次输入随历史从 7k 涨到 53k（监督者上下文
+# 不压缩），后续还需分析/写作/审核派发与签核，按 32 次、140 万预留。
+calls = 32
+tokens = 1400000
+[stages.searcher]
+calls = 40
+tokens = 900000
+[stages.analysist]
+# 第十一轮实测：单派发含图表脚本修复用满 36 次、146 万；补图任务还要重算指标，
+# 按 44 次、180 万预留。
+# CATL 真实验收（2026-11-12）：31 次调用已用 171.9 万并完成沙盒计算，但仍差
+# 提交/收尾轮次而触顶；上下文单次输入最高约 7.9 万。上调至 240 万留出收尾余量。
+calls = 44
+tokens = 2400000
+[stages.writer]
+# 第十一轮实测：写作含正文数字溯源修正在 24 次时已用 77 万，按 40 次、130 万预留。
+calls = 40
+tokens = 1300000
+[stages.reviewer]
+calls = 22
+tokens = 750000
+[stages.reviewer.branches]
+quality = 16
+compliance = 6

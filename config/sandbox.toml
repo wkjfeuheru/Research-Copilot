@@ -1,0 +1,13 @@
+image = "research-copilot-analysist:1"
+cpus = 1
+memory_mib = 1024
+pids = 64
+timeout_seconds = 120
+temporary_mib = 256
+output_bytes = 33554432
+output_files = 100
+log_bytes = 65536
+concurrency = 2
+queue_seconds = 30
+executions_per_dispatch = 20
+task_seconds = 1200

@@ -1,0 +1,10 @@
+{
+  "version": "research-v1",
+  "echartsVersion": "6.1.0",
+  "maxBytes": 1048576,
+  "maxNodes": 100000,
+  "types": ["bar", "line", "scatter", "heatmap", "candlestick", "treemap", "sankey", "category", "value", "log", "time", "inside", "slider"],
+  "seriesTypes": ["bar", "line", "scatter", "heatmap", "candlestick", "treemap", "sankey"],
+  "formatters": ["{b}: {c}", "{c}", "{value}", "{value}%"],
+  "keys": ["title", "text", "subtext", "textStyle", "fontFamily", "fontSize", "fontWeight", "color", "backgroundColor", "animation", "tooltip", "renderMode", "trigger", "formatter", "legend", "show", "selected", "orient", "grid", "left", "right", "top", "bottom", "width", "height", "containLabel", "xAxis", "yAxis", "type", "data", "name", "min", "max", "scale", "axisLabel", "rotate", "interval", "axisLine", "axisTick", "splitLine", "lineStyle", "opacity", "series", "stack", "itemStyle", "borderColor", "borderWidth", "silent", "dataZoom", "start", "end", "xAxisIndex", "yAxisIndex", "gridIndex", "visualMap", "calculable", "inRange", "label", "position", "symbolSize", "smooth", "connectNulls", "areaStyle", "value", "children", "links", "source", "target", "roam", "nodeClick", "emphasis", "focus", "barWidth", "barMaxWidth", "boundaryGap", "nameLocation", "nameGap", "nameTextStyle"]
+}

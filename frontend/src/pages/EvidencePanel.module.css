@@ -1,0 +1,222 @@
+.layout {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.withDetail {
+  grid-template-columns: minmax(0, 1fr) minmax(19rem, 0.72fr);
+  align-items: start;
+}
+
+.listPane {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--color-line);
+  background: var(--color-paper);
+  font-size: var(--text-sm);
+}
+
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.table th {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.table td:first-child,
+.table td:nth-child(2) {
+  white-space: nowrap;
+}
+
+.table td:last-child {
+  min-width: 14rem;
+}
+
+.linkButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-pine-strong);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.kindBadge {
+  display: inline-block;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--color-ink-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.snippetBadge {
+  border-color: var(--color-pine-strong);
+  color: var(--color-pine-strong);
+}
+
+.snippetMeta {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.pagerButtons {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.detailPane {
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-4));
+  display: grid;
+  gap: var(--space-2);
+  max-height: calc(100vh - 8rem);
+  padding: var(--space-4);
+  overflow-y: auto;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-paper);
+}
+
+.detailPane:empty {
+  display: none;
+}
+
+.detailHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.closeButton {
+  flex: none;
+  white-space: nowrap;
+}
+
+.detailHead h3 {
+  margin-top: 0.1rem;
+  font-size: var(--text-md);
+  line-height: 1.5;
+}
+
+.detailMeta {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.summary {
+  padding: var(--space-2) var(--space-3);
+  border-left: 3px solid var(--color-line-strong);
+  background: var(--color-surface-muted);
+  color: var(--color-ink-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+
+.text {
+  max-height: 26rem;
+  margin: 0;
+  padding: var(--space-3);
+  overflow: auto;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+  color: var(--color-ink-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.error {
+  padding: var(--space-2) var(--space-3);
+  border-left: 3px solid var(--color-danger);
+  background: var(--color-danger-pale);
+  color: var(--color-danger);
+  font-size: var(--text-sm);
+}
+
+.skeleton {
+  display: grid;
+  gap: 1px;
+  margin-top: var(--space-4);
+  border: 1px solid var(--color-line);
+  background: var(--color-line);
+}
+
+.skeleton span {
+  height: 2.6rem;
+  background: var(--color-paper);
+  animation: evidencePulse 1.6s ease-in-out infinite;
+}
+
+@keyframes evidencePulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (max-width: 960px) {
+  .withDetail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .detailPane {
+    position: static;
+    max-height: none;
+  }
+
+  .table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton span {
+    animation: none;
+  }
+}

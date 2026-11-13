@@ -1,0 +1,12 @@
+{
+  "report_id": "v2-e2e-20261030-wuliangye-r4",
+  "as_of": "2025-04-30",
+  "validation": "historical replay only",
+  "files": {
+    "analysis_payload.json": "9ae15b52b6474b26f5c2ef14ff0499ff183adccfe238a90e2738a31ccaa96bd5",
+    "metrics.json": "6b549e8a7c89f8bfe8cc8325c7b15ea304ce1aa8a94aa6e8940a4416c4b9e407",
+    "report_payload.json": "df52633853218902f5c16af7be2c6911a3ece91f6341b277ddf1e79e7db7a3b0",
+    "review.json": "23b7e6ad7f0c391577fb3acbb6e4d672ff4b06a217b02fe8d451eac3b8904560",
+    "sources.json": "7c8798b7aead795aef695aceae67ceb9e526ef50709cece3123550ed7f2fda8f"
+  }
+}
